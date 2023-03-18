@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321152860999",
+    "project_id": "welapp-f1515",
+    "storage_bucket": "welapp-f1515.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321152860999:android:419426761b52e744004262",
+        "android_client_info": {
+          "package_name": "com.example.welapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321152860999-bt3npflvvs8echcnsppaisctlgr2j792.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7JnoHazZ9vZ3NgtdlHapzY5OLytyIXso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321152860999-bt3npflvvs8echcnsppaisctlgr2j792.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
