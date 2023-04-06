@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:welapp/admin/admin_2.dart';
+import 'package:welapp/admin/admin_page.dart';
 
-import 'cllient/client_page.dart';
-import 'login/login_client.dart';
+import 'package:welapp/login/login_admin.dart';
 
 
 
 
-class Auth extends StatelessWidget {
-  const Auth({super.key});
+
+
+
+class Auth3 extends StatelessWidget {
+  const Auth3({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +21,10 @@ class Auth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const ClientPage();
+            //return const Myhome();
+            return const AdminPage();
           } else {
-            return const LoginClient();
+            return const LoginAdmin();
           }
         },
       ),

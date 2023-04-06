@@ -39,10 +39,13 @@ dependencies:
   checkbox_grouped: ^1.8.2
   neumorphic_button: ^0.0.1+2
   flutter_inset_box_shadow: ^1.0.8
+  awesome_dialog: ^3.0.2
 
   #Firebase auth and firebase core
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.10
+  cloud_firestore: ^4.4.5
+  firebase_database: ^10.1.0
 
 
 dev_dependencies:

@@ -1,10 +1,9 @@
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:welapp/auth.dart';
 import 'package:welapp/cllient/client_page.dart';
-import 'package:welapp/login/forget_passCl.dart';
 
 
 class LoginClient extends StatefulWidget{
@@ -14,11 +13,12 @@ class LoginClient extends StatefulWidget{
 }
 class _LoginClientState extends State<LoginClient> {
   
+  
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool passToggle = true;
   final _formfield = GlobalKey<FormState>();
-
+  final _auth = FirebaseAuth.instance;
   //bool emailValid = 
   
   //Initia Firebase App
@@ -27,11 +27,33 @@ class _LoginClientState extends State<LoginClient> {
   //   return firebaseApp;
   // }
 
-Future signIn() async {
-  await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailController.text.trim(),
-    password: _passwordController.text.trim(),
-  );
+// Future signIn() async {
+//   await FirebaseAuth.instance.signInWithEmailAndPassword(
+//     email: _emailController.text.trim(),
+//     password: _passwordController.text.trim(),
+//   );
+// }
+Future<void> signIn() async {
+  try {
+    final newuser = await _auth.signInWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+    if(newuser != null) {
+      print('Succ');
+    }
+    else {
+      print('fail');
+      AwesomeDialog(
+        context: context,
+        title: 'Erreur',
+        body: const Text('Pass is n'),
+      )
+      .show();
+    }
+  } catch(e) {
+    print(e);
+
+
+    
+  }
 }
   
   
@@ -43,16 +65,23 @@ Future signIn() async {
     _passwordController.dispose();
   }
 
+  //   void _navigateToSecondScreen() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => ClientPage(name:_emailController.text)),
+  //   );
+  // }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         //title: Text('Clients'),
-        backgroundColor: Color.fromARGB(255, 222, 227, 230),
+        backgroundColor: const Color.fromARGB(255, 222, 227, 230),
       leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
+          icon: const Icon(
+            Icons.arrow_back_ios,
             color: Colors.black,
             size: 30,
           ),
@@ -61,13 +90,13 @@ Future signIn() async {
           },
         ),
       ),  
-      backgroundColor: Color.fromARGB(255, 222, 227, 230),
+      backgroundColor: const Color.fromARGB(255, 222, 227, 230),
       body: SafeArea(
         //child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Login Client',
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 32, 32),
@@ -76,7 +105,7 @@ Future signIn() async {
                 ),
               ),
         
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
         
         
               //Email Textfield
@@ -92,11 +121,31 @@ Future signIn() async {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
                       controller: _emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
-                        
-                        prefixIcon: const Icon(Icons.email),
+                        // contentPadding: EdgeInsets.symmetric(
+                        //   vertical: 10,
+                        //   horizontal: 20,
+                        // ),
+                        // border: OutlineInputBorder(
+                        //   borderRadius: BorderRadius.all(
+                        //     Radius.circular(10),
+                        //   )
+                        // ),
+                        // enabledBorder: OutlineInputBorder(
+                        //   borderSide: BorderSide(color: Colors.white,width: 1),
+                        //   borderRadius: BorderRadius.all(
+                        //     Radius.circular(10),
+                        //   )
+                        // ),
+                        // focusedBorder: OutlineInputBorder(
+                        //   borderSide: BorderSide(color: Colors.orange,width: 2),
+                        //   borderRadius: BorderRadius.all(
+                        //     Radius.circular(10),
+                        //   )
+                        // ),
+                        prefixIcon: Icon(Icons.email),
                       ),
                       // validate: (value){
                       //   if(value!.dispose){
@@ -109,7 +158,7 @@ Future signIn() async {
                 ),
               ),
               
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               //password
               Padding(
@@ -159,7 +208,7 @@ Future signIn() async {
                 ), 
               ),
               
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               //sign in button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -168,7 +217,7 @@ Future signIn() async {
                   onTap: signIn,
                   
                   child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.amber[900],
                       borderRadius: BorderRadius.circular(12),
@@ -184,7 +233,7 @@ Future signIn() async {
                     ),
                     
                         
-                    child: Center(child: Text('Sign in',
+                    child: const Center(child: Text('Sign in',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 23,
@@ -195,14 +244,14 @@ Future signIn() async {
                 ),
               //),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               //forget
               GestureDetector(
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ClientPage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ClientPage()));
                 },
-                child: Text(
+                child: const Text(
                   'Forget the Password ?',
                   style: TextStyle(
                     color: Colors.blue,

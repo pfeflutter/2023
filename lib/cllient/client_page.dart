@@ -1,7 +1,13 @@
+//import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:welapp/espace/agent_page.dart';
-import 'package:welapp/welcome/welcome.dart';
+import 'package:welapp/cllient/les_derangement/home_der.dart';
+import 'package:welapp/cllient/mes_fact.dart';
+import 'package:welapp/cllient/mes_lignes.dart';
+import 'package:welapp/cllient/mon_compte.dart';
+
+
 
 class ClientPage extends StatefulWidget {
   const ClientPage({super.key});
@@ -11,353 +17,366 @@ class ClientPage extends StatefulWidget {
 }
 
 class _ClientPageState extends State<ClientPage> {
+  final user = FirebaseAuth.instance.currentUser!;
   //bool _isCheked = false;
+ //final String name;
+  //ClientPage({required this.name});
 
-  //creating static data in lists
-  List catNames = [
-    'Mon compte',
-    'Classes',
-    'Free Course',
-    'BookStore',
-    'Live Course',
-    'LeaderBoard',
-  ];
+  // //creating static data in lists
+  // List catNames = [
+  //   'Mon compte',
+  //   //'Classes',
+  //   'Free Course',
+  //   'BookStore',
+  //   'Live Course',
+  //   'LeaderBoard',
+  // ];
 
-  List<Color> catColors = [
-    Color(0xFFFFCF2F),
-    Color(0xFF6FE08D),
-    Color(0xFF61BDFD),
-    Color(0xFFFC7F7F),
+  // List<Color> catColors = [
+  //   Color(0xFFFFCF2F),
+  //  // Color(0xFF6FE08D),
+  //   Color(0xFF61BDFD),
+  //   Color(0xFFFC7F7F),
 
-    Color(0xFFCB84FB),
-    Color(0xFF78E667),
+  //   Color(0xFFCB84FB),
+  //   Color(0xFF78E667),
     
-  ];
+  // ];
 
-  List<Icon> catIcons = [
-    Icon(Icons.person, color: Colors.white, size: 30),
-    Icon(Icons.video_library, color: Colors.white, size: 30),
-    Icon(Icons.assignment, color: Colors.white, size: 30),
-    Icon(Icons.store, color: Colors.white, size: 30),
-    Icon(Icons.play_circle_fill, color: Colors.white, size: 30),
-    Icon(Icons.emoji_events, color: Colors.white, size: 30),
-  ];
+  // List<Icon> catIcons = [
+  //   Icon(Icons.person, color: Colors.white, size: 30),
+  //  // Icon(Icons.video_library, color: Colors.white, size: 30),
+  //   Icon(Icons.assignment, color: Colors.white, size: 30),
+  //   Icon(Icons.store, color: Colors.white, size: 30),
+  //   Icon(Icons.play_circle_fill, color: Colors.white, size: 30),
+  //   Icon(Icons.emoji_events, color: Colors.white, size: 30),
+  // ];
 
 
 @override
-//Widget build(BuildContext context){
-    //  return Scaffold(
-    //   body: ListView(
-    //     children: [
-    //       Container(
-    //         padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 10),
-    //         decoration: BoxDecoration(
-    //           color: Color(0xFF674AEF),
-    //           borderRadius: BorderRadius.only(
-    //             bottomLeft: Radius.circular(20),
-    //             bottomRight: Radius.circular(0),
-    //           )
-    //         ),
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 Icon(
-    //                   Icons.dashboard,
-    //                   size: 30,
-    //                   color: Colors.white,
-    //                 ),
-    //                 Icon(
-    //                   Icons.notifications,
-    //                   size: 30,
-    //                   color: Colors.white,
-    //                 ),
-    //               ],
-    //             ), 
-    //             SizedBox(height: 20,),
-    //             Padding(
-    //               padding: EdgeInsets.only(left: 3,bottom: 15),
-    //               child: Text(
-    //                 'Bienvenue Nom',
-    //                 style: TextStyle(
-    //                   fontSize: 25,
-    //                   fontWeight: FontWeight.bold,
-    //                   letterSpacing: 1,
-    //                   wordSpacing: 2,
-    //                   color: Colors.white,
-    //                 ),
-    //               ),
-    //             ),
-    //             Container(
-    //               margin: EdgeInsets.only(top: 5, bottom: 20 ),
-    //               width: MediaQuery.of(context).size.width,
-    //               height: 55,
-    //               alignment: Alignment.center,
-    //               decoration: BoxDecoration(
-    //                 color: Colors.white,
+Widget build(BuildContext context){
+     return Scaffold(
 
-    //               ),
-    //               // child: TextFromField(
-                    
-    //               // ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-
-    //       Padding(
-    //         padding: EdgeInsets.only(top: 20, left: 15, right: 15),
-    //         child: Column(
-    //           children: [
-    //             GridView.builder(
-    //               itemCount: catNames.length,
-    //               shrinkWrap: true,
-    //               physics: NeverScrollableScrollPhysics(),
-    //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //                 crossAxisCount: 3,
-    //                 childAspectRatio: 1.1,
-
-    //               ),
-    //               itemBuilder: (context, index){
-    //                 return Column(
-    //                   children: [
-    //                     Container(
-    //                       height: 60,
-    //                       width: 60,
-    //                       decoration: BoxDecoration(
-    //                         color: catColors[index],
-    //                         shape: BoxShape.circle,
-    //                       ),
-    //                       child: Center(
-    //                         child: catIcons[index],
-    //                       ),
-    //                     ),
-    //                     SizedBox(height: 10),
-    //                     Text(
-    //                       catNames[index],
-    //                       style: TextStyle(
-    //                         fontSize: 16,
-    //                         fontWeight: FontWeight.bold,
-    //                         color: Colors.black.withOpacity(0.7),
-
-    //                       ),
-    //                     )
-    //                   ],
-    //                 );
-    //               },
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    //  );
-// }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //App Bar
-      appBar: AppBar(
-        title: const Text('client page'),
-        backgroundColor: Colors.grey,
-      
-      //////////
-      actions: <Widget>[
-        IconButton(onPressed: () {}, icon: Icon(Icons.person),iconSize: 30,),
-        ///////////
-        IconButton(
-          onPressed: () {
-            //ScaffoldMessenger.of(context).showSnackBar(
-                //const SnackBar(content: Text('This is a snackbar')));
-          },
-          icon: const Icon(
-            Icons.message,
-          ),
-          iconSize: 30,
-          tooltip: 'Show Snackbar',
-        ),
-        
-      ],
-      //////////
-      leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ///////////////
-      
-      ),
-
-      body: Container(
-        padding: const EdgeInsets.symmetric(
-         // padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 10),
-          // decoration: BoxDecoration(
-          //      color: Color(0xFF674AEF),
-          //      borderRadius: BorderRadius.only(
-          //        bottomLeft: Radius.circular(20),
-          //        bottomRight: Radius.circular(0),
-          //      )
-          //    ),
-          //horizontal: 0,
-          
-        ),
-        child: SingleChildScrollView(
-          
-          child: Center(
+      body: Stack(
+        children: [
+          Positioned(
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                SizedBox(height: 40,),
-                Text(
-                  'Bienvenue',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                //SizedBox(height: 20,),
+                Container(
+                  height: 380,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 107, 189, 227),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(80)
+                    ),
                   ),
-                ),
-                ///////////////////
-                SizedBox(height: 30,),
-                ////////////////////
-                GestureDetector(
-                  onTap: (){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>()));
-                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        
+                      AppBar(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0.0,
+                        leading: IconButton(
+                          
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EspacePage()));
+                          },
+                        ),
+                        //////////////
+                        actions: <Widget>[
+                          
+                          IconButton(
+                            onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));}, icon: const Icon(Icons.person),iconSize: 30,),
+                          ///////////
+                          IconButton(
+                            onPressed: () {
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              // const SnackBar(content: Text('This is a snackbar')));
+                            },
+                            icon: const Icon(
+                              Icons.message,
+                            ),
+                            iconSize: 30,
+                            tooltip: 'Show Snackbar',
+                          ),
+                          
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Hi ,',//+user.email!,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: 'Inspiration',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            user.email!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: 'Inspiration',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        
+                          // MaterialButton(
+                          //   onPressed: (){
+                          //     FirebaseAuth.instance.signOut();
+                          //   },
+                          //   color: Colors.blue,
+                          //   child: Text('sign out'),
+                          //   ), 
+                          
+                          
+                        ],
+                      ),
+                      ]
+                    ),
+                  ),
+              
                   
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(15.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                      //border: Border(bottom: BorderSide(width: 3)),
-
-                    ),
-                      child: Text(
-                        'Mon Compte',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                  ),
-                ),
-                ////////////////////
-                
-                GestureDetector(
-                  onTap: (){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AgentPage()));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(15.0),
-                    padding: EdgeInsets.all(10.0),
-                    
-                    decoration: BoxDecoration(
-                      // image: DecorationImage(
-                      //   image: AssetImage('assets/images/22.png'),
-                      //   fit: BoxFit.cover,
-                      // ),
-                      // border: Border.all(
-                      //   width: 8,
-                      // )
-
-                      border: Border.all(color: Colors.grey,width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                      //border: Border(bottom: BorderSide(width: 3)),
-                      
-                    ),
-                      child: Text(
-                        'Mes Factures',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                  ),
-                ),
-                //SizedBox(height: 40),
-                //////////////////////////////////////
-                
-                GestureDetector(
-                  onTap: (){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>()));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(15.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                      
-                     // border: Border(bottom: BorderSide(width: 3)),
-
-                    ),
-                      child: Text(
-                        'Les dérangements',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                  ),
-                ),
-
-                //////////////////////////////////////////////
-                
-                GestureDetector(
-                  onTap: (){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WelcomePage()));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(15.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                      //border: Border(bottom: BorderSide(width: 3)),
-
-                    ),
-                      child: Text(
-                        'Mes Lignes',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                  ),
-                ),
-                MaterialButton(onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: Text(
-                  'sign out',
-                ),
-                ),
+                ) 
+               
               ],
             ),
           ),
+          
+          Padding(
+            padding: const EdgeInsets.only(top: 250),
+            
+            // child: GridView.count(
+            //   crossAxisCount: 2,
+            //   mainAxisSpacing: 20,
+            //   children: const [
+            //     CourseCart(text: 'Mon Compte', icon: Icons.percent_outlined, color: Colors.black,),
+            //     CourseCart(text: 'Mon Compte', icon: Icons.ac_unit, color: Colors.black,),
+            //     CourseCart(text: 'Mon Compte', icon: Icons.h_mobiledata, color: Colors.black,),
+            //     CourseCart(text: 'Mon Compte', icon: Icons.percent_outlined, color: Colors.black,),
+                
+               
+            //   ],
+            // ),
+          child: ListView(
+          
+          children:[
+            const SizedBox(height: 40),
+            Container(
+              margin: const EdgeInsets.only(left: 20,right: 20,),
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.blue,
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Mon compte",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                ),
+                subtitle: const Text('mes informations',style: TextStyle(color: Colors.white),),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.account_box_rounded,size: 30,),
+                iconColor: Colors.white,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                        builder: (context) => const MonCompteCl(),
+                      ),
+                  );
+                },
+              ),
+            ),
+        const SizedBox(height: 10),
+        Container(
+          margin: const EdgeInsets.only(left: 20,right: 20,),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.blue,
+            ),
+            child: ListTile(
+              title: const Text("Mes factures",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 20,),),
+              subtitle: const Text('clique ici pur paire',style: TextStyle(color: Colors.white),),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              leading: const Icon(Icons.text_snippet,size: 30,),
+              iconColor: Colors.white,
+              onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MesFactureCl(),
+                    ),
+                  );
+                },
+            ),
         ),
-      ),
-    );
-  }
+        const SizedBox(height: 10,),
+        Container(
+          margin: const EdgeInsets.only(left: 20,right: 20,),
+          padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.blue,
+            ),
+            child: ListTile(
+              title: const Text("Les derangement",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+              subtitle: const Text('selectionne un derangement',style: TextStyle(color: Colors.white),),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              leading: const Icon(Icons.question_mark,size: 30,),
+              dense: true,
+              iconColor: Colors.white,
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => Derangement(),),);
+              },
+            ),
+        ),
+        const SizedBox(height: 10,),
+        Container(
+          margin: const EdgeInsets.only(left: 20,right: 20,),
+          padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.blue,
+            ),
+          child: ListTile(
+            title: const Text("Mes lignes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+            subtitle: const Text('clique ici pur voire votre lignes',style: TextStyle(color: Colors.white),),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            leading: const Icon(Icons.call),
+            //contentPadding: EdgeInsets.all(20),
+            dense: true,
+            iconColor: Colors.white,
+            onTap: () {
+              Navigator.push(
+                context,
+                  MaterialPageRoute(
+                    builder: (context) => const MesLignesCl(),
+                  ),
+                );
+              },
+          ),
+        ),
+        const SizedBox(height: 20,),
+        Column(
+          children: [
+            GestureDetector(
+              onTap: (){
+                FirebaseAuth.instance.signOut();
+              },
+              child: const Text(
+                'sign out',
+              ),
+            ),
+         ],
+        ),
+        const SizedBox(height: 20,)
+        ],
+      ) ,
+    ),
+          
+         
+    ],
+      
+    ),
+  );
+}
 
 }
+
+// class CourseCart extends StatelessWidget {
+//   const CourseCart({
+//     Key ? key, required this.text, required this.icon, required this.color,
+//   }) : super(key: key);
+//   final String text;
+//   final IconData icon;
+//   final Color color;
+//   //final
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: EdgeInsets.only(left: 20,right: 20,),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(12), 
+//         boxShadow: const [
+//           BoxShadow(
+//             color: Colors.white,
+//             offset: Offset(-5, 5),
+//             blurRadius: 20,
+//             spreadRadius: 0.5,
+//           )
+          
+//         ]
+//       ),
+
+//       child: Column(
+//         children: [
+//           Container(
+//             height: 70,
+//             width: 70,
+//             decoration: const BoxDecoration(
+//               color: Colors.white,
+//               shape: BoxShape.circle,
+//               boxShadow: [
+//               BoxShadow(
+//                 color: Color.fromARGB(255, 231, 207, 207),
+//                 offset: Offset(-5, 5),
+//                 blurRadius: 20,
+//                 spreadRadius: 0.5,
+//               ),
+//               BoxShadow(
+//                 color: Colors.white,
+//                 offset: Offset(-5, 5),
+//                 blurRadius: 0.0,
+//                 spreadRadius: 3.0,
+//               )
+          
+//               ]
+//             ),
+//             child: Padding(
+//               padding: const  EdgeInsets.all(10),
+//               child: IconButton(onPressed: () {
+//                 Navigator.push(
+//                     context,
+//                     MaterialPageRoute(
+//                       builder: (context) => AdminPage(),
+//                     ),
+//               );
+//               }, icon: Icon(icon),iconSize: 30,),
+//               ),
+//           ),
+//           const SizedBox(height: 20),
+//           Column(
+//             children:  [
+//               GestureDetector(
+//                 onTap: () {
+                  
+//                 },
+//               child: Text(
+//                 text,
+//               ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

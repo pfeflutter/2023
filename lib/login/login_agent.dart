@@ -1,4 +1,6 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/login/forget_passCl.dart';
 
@@ -11,18 +13,24 @@ class LoginAgent extends StatefulWidget{
 }
 class _LoginAgentState extends State<LoginAgent> {
   
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _eAcl = TextEditingController();
+  final _pAcl = TextEditingController();
   
   
-
+Future signIn() async {
+  await FirebaseAuth.instance.signInWithEmailAndPassword(
+   //await FirebaseFirestore.instance.collection('admin').signIn(
+    email: _eAcl.text.trim(),
+    password: _pAcl.text.trim(),
+  );
+}
 
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
+    _eAcl.dispose();
+    _pAcl.dispose();
   }
 
   @override
@@ -33,7 +41,7 @@ class _LoginAgentState extends State<LoginAgent> {
         backgroundColor: const Color.fromARGB(255, 222, 227, 230),
       leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: Colors.black,
             size: 30,
           ),
@@ -71,7 +79,7 @@ class _LoginAgentState extends State<LoginAgent> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      controller: _emailController,
+                      controller: _eAcl,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
@@ -95,7 +103,7 @@ class _LoginAgentState extends State<LoginAgent> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      controller: _passwordController,
+                      controller: _pAcl,
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -112,8 +120,7 @@ class _LoginAgentState extends State<LoginAgent> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: GestureDetector(
-
-                  //onTap: signIn,
+                  onTap: signIn,
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(

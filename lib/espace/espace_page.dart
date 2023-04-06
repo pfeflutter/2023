@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:welapp/admin/admin_page.dart';
 import 'package:welapp/auth.dart';
-import 'package:welapp/espace/admin_page.dart';
-import 'package:welapp/cllient/client_page.dart';
-import 'package:welapp/login/login_admin.dart';
-import 'package:welapp/login/login_client.dart';
+import 'package:welapp/auth2.dart';
+import 'package:welapp/auth3.dart';
 
-import '../login/login_agent.dart';
-import 'agent_page.dart';
 
 
 class EspacePage extends StatelessWidget {
@@ -18,7 +15,7 @@ class EspacePage extends StatelessWidget {
     return Scaffold(
       
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 202, 201, 201),
+        backgroundColor: const Color.fromARGB(255, 202, 201, 201),
         title: const Text(
           'TELE LIGHTS',
           style: TextStyle(
@@ -29,7 +26,7 @@ class EspacePage extends StatelessWidget {
         elevation: 10,      
         
         leading: Container(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           
           child: IconButton(
             icon: const Icon(
@@ -61,12 +58,12 @@ class EspacePage extends StatelessWidget {
             children: [
                   GestureDetector(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Auth()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Auth()));
                     },
                     child: Container(
                       //width: 150,
                       height: 250,
-                      margin: EdgeInsets.all(15.0),
+                      margin: const EdgeInsets.all(15.0),
                       //padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         //border: Border.all(color: Colors.grey,width: 3),
@@ -74,7 +71,7 @@ class EspacePage extends StatelessWidget {
                         // border: Border(bottom: BorderSide(width: 3)),
                         borderRadius: BorderRadius.circular(12),
                         //color: Colors.amber,
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage('assets/images/22.png'),
                           fit: BoxFit.cover,
                         ),
@@ -106,22 +103,22 @@ class EspacePage extends StatelessWidget {
                     ),
                   ),
               ///////////////Espace ADMIN
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
         
                   GestureDetector(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AdminPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Auth3()));
                     },
                     child: Container(
                       //width: double.infinity,
-                      //width: 200,
+                      //width: size.width*0.44,
                       height: 100,
-                      margin: EdgeInsets.all(15.0),
+                      margin: const EdgeInsets.all(15.0),
                       //padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         //border: Border.all(color: Colors.grey,width: 3),
                         borderRadius: BorderRadius.circular(12),
-                        color: Color.fromARGB(255, 250, 230, 230),
+                        color: const Color.fromARGB(255, 250, 230, 230),
                         // image: DecorationImage(
                         //   image: AssetImage('assets/images/22.png'),
                         //   fit: BoxFit.cover,
@@ -142,7 +139,7 @@ class EspacePage extends StatelessWidget {
                         ]
                         
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'ESPACe ADMIN',
                           style: TextStyle(
@@ -156,16 +153,17 @@ class EspacePage extends StatelessWidget {
                     ),
                   ),
                   /////////////////////////////////ESPACE AGENT
-                  SizedBox(height: 0),
+                  const SizedBox(height: 0),
                   GestureDetector(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AgentPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Auth2()));
+                      //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const AdminPage()));
                     },
                     child: Container(
                       //width: double.infinity,
-                     // width: 200,
+                      //width: 200,
                       height: 100,
-                      margin: EdgeInsets.all(15),
+                      margin: const EdgeInsets.all(15),
                       //padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         // border: Border.all(color: Colors.grey,width: 3),
@@ -173,7 +171,7 @@ class EspacePage extends StatelessWidget {
                         // //border: Border(bottom: BorderSide(width: 3)),
 
                         borderRadius: BorderRadius.circular(12),
-                        color: Color.fromARGB(255, 250, 230, 230),
+                        color: const Color.fromARGB(255, 250, 230, 230),
                         // image: DecorationImage(
                         //   image: AssetImage('assets/images/22.png'),
                         //   fit: BoxFit.cover,
@@ -192,7 +190,7 @@ class EspacePage extends StatelessWidget {
                         ]
                         
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'ESPACe AGENT',
                           style: TextStyle(

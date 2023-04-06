@@ -1,16 +1,13 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:welapp/auth.dart';
-import 'package:welapp/espace/admin_page.dart';
-import 'package:welapp/cllient/client_page.dart';
-import 'package:welapp/login/forget_passCl.dart';
+
 
 
 class LoginAdmin extends StatefulWidget{
   const LoginAdmin({super.key});
 
+  @override
   State<LoginAdmin> createState() => _LoginAdminState();
 }
 class _LoginAdminState extends State<LoginAdmin> {
@@ -50,10 +47,10 @@ Future signIn() async {
     return Scaffold(
       appBar: AppBar(
         //title: Text('Clients'),
-        backgroundColor: Color.fromARGB(255, 222, 227, 230),
+        backgroundColor: const Color.fromARGB(255, 222, 227, 230),
       leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
+          icon: const Icon(
+            Icons.arrow_back_ios,
             color: Colors.black,
             size: 30,
           ),
@@ -62,13 +59,13 @@ Future signIn() async {
           },
         ),
       ),  
-      backgroundColor: Color.fromARGB(255, 222, 227, 230),
+      backgroundColor: const Color.fromARGB(255, 222, 227, 230),
       body: SafeArea(
         //child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Login Admin',
                 style: TextStyle(
                   color: Color.fromARGB(255, 84, 32, 32),
@@ -77,7 +74,7 @@ Future signIn() async {
                 ),
               ),
         
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
         
         
               //Email Textfield
@@ -93,11 +90,11 @@ Future signIn() async {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
                       controller: _emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email',
                         
-                        prefixIcon: const Icon(Icons.email),
+                        prefixIcon: Icon(Icons.email),
                       ),
                       // validate: (value){
                       //   if(value!.dispose){
@@ -110,7 +107,7 @@ Future signIn() async {
                 ),
               ),
               
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               //password
               Padding(
@@ -160,7 +157,7 @@ Future signIn() async {
                 ), 
               ),
               
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               //sign in button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -169,7 +166,7 @@ Future signIn() async {
                   onTap: signIn,
                   
                   child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.amber[900],
                       borderRadius: BorderRadius.circular(12),
@@ -185,7 +182,7 @@ Future signIn() async {
                     ),
                     
                         
-                    child: Center(child: Text('Sign in',
+                    child: const Center(child: Text('Sign in',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 23,
@@ -196,14 +193,14 @@ Future signIn() async {
                 ),
               //),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               //forget
               GestureDetector(
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AdminPage()));
+                  //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ()));
                 },
-                child: Text(
+                child: const Text(
                   'Forget the Password ?',
                   style: TextStyle(
                     color: Colors.blue,
