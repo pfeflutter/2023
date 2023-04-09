@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/user.dart';
 import 'package:welapp/admin/admin_page.dart';
+import 'package:welapp/main.dart';
 
 class AddUserDialog extends StatefulWidget {
   //const AddUsersDialog({super.key});
@@ -14,9 +16,10 @@ class AddUserDialog extends StatefulWidget {
 }
 
 class _AddUserDialogState extends State<AddUserDialog> {
-  
-  final _db = FirebaseFirestore.instance;
-  late DatabaseReference dbRef;
+  CollectionReference ref = FirebaseFirestore.instance.collection('clients');
+  //final _db = FirebaseFirestore.instance;
+  //late DatabaseReference dbRef;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   final nomController = TextEditingController();
   final prenomController = TextEditingController();
@@ -27,10 +30,10 @@ class _AddUserDialogState extends State<AddUserDialog> {
   final adresseController = TextEditingController();
 
    
-    void initState() {
-      super.initState();
-      dbRef = FirebaseDatabase.instance.ref().child('Clients');
-    }
+    // void initState() {
+    //   super.initState();
+    //   dbRef = FirebaseDatabase.instance.ref().child('Clients');
+    // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +69,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
             buildTextfield('Prenom',prenomController),
             buildTextfield('Email',emailController),
             buildTextfield('Phone',phoneNoController),
-            buildTextfield('CNI',villeController),
-            buildTextfield('Ville',cniController),
+            buildTextfield('CNI',cniController),
+            buildTextfield('Ville',villeController),
             buildTextfield('Adresse',adresseController),
             
 
@@ -76,17 +79,19 @@ class _AddUserDialogState extends State<AddUserDialog> {
               onPressed: (){
                 final userr = Utilisateur(nomController.text, emailController.text, phoneNoController.text,prenomController.text, cniController.text, villeController.text,adresseController.text);
                 widget.addUser(userr);
-                Map<String,String> clients = {
-                  'Nom' : nomController.text,
-                  'Prenom' : prenomController.text,
-                  'CNI' : cniController.text,
-                  'Email' : emailController.text,
-                  'Phone' : phoneNoController.text,
-                  'Ville' : villeController.text,
-                  'Adresse' : adresseController.text,
-                };
-                dbRef.push().set(clients);
-                Navigator.of(context).pop();
+                _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
+                ref.add({
+                    'Nom' : nomController.text,
+                    'Prenom' : prenomController.text,
+                    'CNI' : cniController.text,
+                    'Email' : emailController.text,
+                    'Phone' : phoneNoController.text,
+                    'Ville' : villeController.text,
+                    'Adresse' : adresseController.text,
+                }).whenComplete(() {
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AdminPage()));
+                });
+                //Navigator.of(context).pop();
               },
               child: Text('Add User')),
       

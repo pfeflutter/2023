@@ -1,6 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:ui';
 
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -10,27 +11,18 @@ import 'package:welapp/admin/user.dart';
 import 'package:welapp/cllient/mon_compte.dart';
 
 class AdminPage extends StatefulWidget {
-  //final CompteClient cClient;
+
   const AdminPage({super.key,});
-  //final String title;
+
   
   @override
   State<AdminPage> createState() => _AdminPageState();
 }
 
 class _AdminPageState extends State<AdminPage> {
-
-  //Query _ref;
-  // DatabaseReference reference = FirebaseDatabase.instance.reference().child('Contacts');
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _ref = FirebaseDatabase.instance.reference().child('Clients').orderByChild('Nom');
-  // }
-  
   List<Utilisateur> userList = [];
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').snapshots();
   
-
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
@@ -71,7 +63,7 @@ class _AdminPageState extends State<AdminPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 50),
                   //padding: EdgeInsets.all(12),
                   child: Column(
                     children: [
@@ -179,50 +171,80 @@ class _AdminPageState extends State<AdminPage> {
           ],
         ),
           ),
-          
-           // const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.only(top: 230),
-              child: Container(
-                height: 600,
-                color: Colors.white,
-                // }),
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Card(
-                      margin: const EdgeInsets.all(4),
-                      elevation: 8,
-                      
-                      //icon: Icons.abc,
-                      // child: ListTile(
-                      //   title: Text(userList[index].username,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Color.fromARGB(255, 86, 18, 146)),),
-                      //   subtitle: Text(userList[index].email),
-                      //   trailing: Text(userList[index].phoneNo),
-                      // ),
-                      child: ListTile(
-                        title: Row(
-                          children: [
-                            const Icon(Icons.person,size: 30,),
-                            const SizedBox(width: 10),
-                            Text(userList[index].ville),
-                          ],
+          StreamBuilder(
+            stream: _usersStream,
+            builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
+              if(snapshot.hasError) {
+                return Text('something is wrong');
+              }
+              if(snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 230),
+                child: Container(
+                  height: 600,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  // }),
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (_, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>MonCompteCl()));
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.all(4),
+                          elevation: 8,
+                          child: ListTile(
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   side: BorderSide(
+                            //     color: Colors.black,
+                            //   ),
+                            // ),
+                            title: Row(
+                              children: [
+                                const Icon(Icons.person,size: 30,),
+                                const SizedBox(width: 10),
+                                Text(
+                                  snapshot.data!.docChanges[index].doc['CNI'],
+                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            subtitle: Row(
+                              children: [
+                                const SizedBox(width: 40),
+                                Text(
+                                  snapshot.data!.docChanges[index].doc['Nom'],
+                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  snapshot.data!.docChanges[index].doc['Prenom'],
+                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                            
+                            //econtentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                          ),
                         ),
-                        subtitle: Row(
-                          children: [
-                            const SizedBox(width: 35),
-                            Text(userList[index].nom),
-                            const SizedBox(width: 10),
-                            Text(userList[index].prenom),
-                          ],
-                        ),
-                        trailing: IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));},icon: const Icon(Icons.arrow_circle_right)),
-                      ),
-                    );
-                  },
-                  itemCount: userList.length,
+                      );
+                    },
+                    
+                  ),
                 ),
               ),
-            )
+            );
+            },
+          ),
+           // const SizedBox(height: 25),
+
           
         
         ],

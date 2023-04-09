@@ -18,40 +18,6 @@ class ClientPage extends StatefulWidget {
 
 class _ClientPageState extends State<ClientPage> {
   final user = FirebaseAuth.instance.currentUser!;
-  //bool _isCheked = false;
- //final String name;
-  //ClientPage({required this.name});
-
-  // //creating static data in lists
-  // List catNames = [
-  //   'Mon compte',
-  //   //'Classes',
-  //   'Free Course',
-  //   'BookStore',
-  //   'Live Course',
-  //   'LeaderBoard',
-  // ];
-
-  // List<Color> catColors = [
-  //   Color(0xFFFFCF2F),
-  //  // Color(0xFF6FE08D),
-  //   Color(0xFF61BDFD),
-  //   Color(0xFFFC7F7F),
-
-  //   Color(0xFFCB84FB),
-  //   Color(0xFF78E667),
-    
-  // ];
-
-  // List<Icon> catIcons = [
-  //   Icon(Icons.person, color: Colors.white, size: 30),
-  //  // Icon(Icons.video_library, color: Colors.white, size: 30),
-  //   Icon(Icons.assignment, color: Colors.white, size: 30),
-  //   Icon(Icons.store, color: Colors.white, size: 30),
-  //   Icon(Icons.play_circle_fill, color: Colors.white, size: 30),
-  //   Icon(Icons.emoji_events, color: Colors.white, size: 30),
-  // ];
-
 
 @override
 Widget build(BuildContext context){
@@ -155,19 +121,7 @@ Widget build(BuildContext context){
           
           Padding(
             padding: const EdgeInsets.only(top: 250),
-            
-            // child: GridView.count(
-            //   crossAxisCount: 2,
-            //   mainAxisSpacing: 20,
-            //   children: const [
-            //     CourseCart(text: 'Mon Compte', icon: Icons.percent_outlined, color: Colors.black,),
-            //     CourseCart(text: 'Mon Compte', icon: Icons.ac_unit, color: Colors.black,),
-            //     CourseCart(text: 'Mon Compte', icon: Icons.h_mobiledata, color: Colors.black,),
-            //     CourseCart(text: 'Mon Compte', icon: Icons.percent_outlined, color: Colors.black,),
-                
-               
-            //   ],
-            // ),
+
           child: ListView(
           
           children:[
