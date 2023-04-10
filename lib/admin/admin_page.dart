@@ -7,6 +7,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/d_box.dart';
+import 'package:welapp/admin/editeUsers.dart';
 import 'package:welapp/admin/user.dart';
 import 'package:welapp/cllient/mon_compte.dart';
 
@@ -22,7 +23,7 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
   List<Utilisateur> userList = [];
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').snapshots();
-  
+  //AuthServices _ath = AuthServices();
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
@@ -194,7 +195,7 @@ class _AdminPageState extends State<AdminPage> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>MonCompteCl()));
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>EditeUsers(docid: snapshot.data!.docs[index],)));
                         },
                         child: Card(
                           margin: const EdgeInsets.all(4),
