@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/admin_page.dart';
 
@@ -11,6 +12,8 @@ class EditeUsers extends StatefulWidget {
 }
 
 class _EditeUsersState extends State<EditeUsers> {
+  final _auth = FirebaseAuth.instance;
+
   var  nomController = TextEditingController();
   var prenomController = TextEditingController();
   var emailController = TextEditingController();
@@ -21,7 +24,7 @@ class _EditeUsersState extends State<EditeUsers> {
 
   void initState(){
     nomController = TextEditingController(text: widget.docid.get('Nom'));
-    phoneNoController = TextEditingController(text: widget.docid.get('Prenom'));
+    prenomController = TextEditingController(text: widget.docid.get('Prenom'));
     adresseController = TextEditingController(text: widget.docid.get('Adresse'));
     cniController = TextEditingController(text: widget.docid.get('CNI'));
     emailController = TextEditingController(text: widget.docid.get('Email'));
@@ -53,6 +56,7 @@ class _EditeUsersState extends State<EditeUsers> {
         actions: [
           MaterialButton(
             onPressed: (){
+              _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
               widget.docid.reference.update({
                     'Nom' : nomController.text,
                     'Prenom' : prenomController.text,
@@ -83,7 +87,6 @@ class _EditeUsersState extends State<EditeUsers> {
           child: Container(
             child: Column(
               children: [
-                //decoration: BoxDecoration(border: Border.all()),
                 buildTextfield('Nom',nomController),
                 buildTextfield('Prenom',prenomController),
                 buildTextfield('Email',emailController),

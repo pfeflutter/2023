@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -16,10 +18,10 @@ class AddUserDialog extends StatefulWidget {
 }
 
 class _AddUserDialogState extends State<AddUserDialog> {
-  CollectionReference ref = FirebaseFirestore.instance.collection('clients');
+  CollectionReference ref = FirebaseFirestore.instance.collection('clients').doc() as CollectionReference<Object?>;
   //final _db = FirebaseFirestore.instance;
   //late DatabaseReference dbRef;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
   final nomController = TextEditingController();
   final prenomController = TextEditingController();
@@ -66,7 +68,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
           children: [
             Text('Add User',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 32),),
             buildTextfield('Nom',nomController),
-            buildTextfield('Prenom',prenomController),
+            buildTextfield('om',prenomController),
             buildTextfield('Email',emailController),
             buildTextfield('Phone',phoneNoController),
             buildTextfield('CNI',cniController),
@@ -77,7 +79,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
 
             ElevatedButton(
               onPressed: (){
-                final userr = Utilisateur(nomController.text, emailController.text, phoneNoController.text,prenomController.text, cniController.text, villeController.text,adresseController.text);
+                final userr = Utilisateur(nom: nomController.text, email: emailController.text, phoneNo: phoneNoController.text, prenom: prenomController.text, cni: cniController.text,ville: villeController.text, adresse: adresseController.text,);
                 widget.addUser(userr);
                 _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
                 ref.add({
@@ -88,6 +90,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                     'Phone' : phoneNoController.text,
                     'Ville' : villeController.text,
                     'Adresse' : adresseController.text,
+                    //'ID' : ref.id,
                 }).whenComplete(() {
                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AdminPage()));
                 });

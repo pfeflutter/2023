@@ -8,8 +8,13 @@ class Utilisateur{
   final String phoneNo;
   final String ville;
   final String adresse;
-
+  String id;
+  
   
 
-  Utilisateur(this.nom,this.email,this.phoneNo,this.prenom,this.ville,this.cni,this.adresse);
+  Utilisateur({
+    this.id = '',
+   required this.nom,
+    required this.email,required this.phoneNo,required this.prenom,required this.ville,required this.cni,required this.adresse,
+});
 }
