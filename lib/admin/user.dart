@@ -18,3 +18,4 @@ class Utilisateur{
     required this.email,required this.phoneNo,required this.prenom,required this.ville,required this.cni,required this.adresse,
 });
 }
+

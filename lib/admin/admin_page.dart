@@ -3,13 +3,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/d_box.dart';
 import 'package:welapp/admin/editeUsers.dart';
 import 'package:welapp/admin/user.dart';
-import 'package:welapp/cllient/mon_compte.dart';
 
 class AdminPage extends StatefulWidget {
 
@@ -176,10 +173,10 @@ class _AdminPageState extends State<AdminPage> {
             stream: _usersStream,
             builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
               if(snapshot.hasError) {
-                return Text('something is wrong');
+                return const Text('something is wrong');
               }
               if(snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -188,7 +185,7 @@ class _AdminPageState extends State<AdminPage> {
                 padding: const EdgeInsets.only(top: 230),
                 child: Container(
                   height: 600,
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   // }),
                   child: ListView.builder(
                     itemCount: snapshot.data!.docs.length,

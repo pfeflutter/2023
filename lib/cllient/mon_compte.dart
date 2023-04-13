@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MonCompteCl extends StatefulWidget {
@@ -8,6 +9,19 @@ class MonCompteCl extends StatefulWidget {
 }
 
 class _MonCompteClState extends State<MonCompteCl> {
+  final FirebaseAuth _authh = FirebaseAuth.instance;
+  late String _uid;
+  late String _email;
+  @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
+  // void getData() {
+  //   User? user = _authh.currentUser;
+  //   _uid = user.uid;
+  //   print('user.email ${user.email}');
+  // }
    
   @override
   Widget build(BuildContext context){
@@ -77,15 +91,6 @@ class _MonCompteClState extends State<MonCompteCl> {
                             ),
                           ),
                           
-                        
-                          // MaterialButton(
-                          //   onPressed: (){
-                          //     FirebaseAuth.instance.signOut();
-                          //   },
-                          //   color: Colors.blue,
-                          //   child: Text('sign out'),
-                          //   ), 
-                          
                         ],
                       ),
                       ]
@@ -94,6 +99,13 @@ class _MonCompteClState extends State<MonCompteCl> {
               
                   
                 ) 
+               
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
                
               ],
             ),

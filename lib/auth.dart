@@ -26,3 +26,4 @@ class Auth extends StatelessWidget {
     );
   }
 }
+
