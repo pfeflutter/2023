@@ -1,5 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:welapp/service/auth_service.dart';
 
 class MonCompteCl extends StatefulWidget {
   const MonCompteCl({super.key});
@@ -8,37 +13,25 @@ class MonCompteCl extends StatefulWidget {
   State<MonCompteCl> createState() => _MonCompteClState();
 }
 
-class _MonCompteClState extends State<MonCompteCl> {
-  final FirebaseAuth _authh = FirebaseAuth.instance;
-  late String _uid;
-  late String _email;
-  @override
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  // }
-  // void getData() {
-  //   User? user = _authh.currentUser;
-  //   _uid = user.uid;
-  //   print('user.email ${user.email}');
-  // }
-   
+class _MonCompteClState extends State<MonCompteCl> { 
+  User? userId = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context){
     return Scaffold(
+
+
       body: Stack(
         children: [
           Positioned(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //SizedBox(height: 20,),
                 Container(
-                  height: 200,
+                  height: 380,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 107, 189, 227),
                     borderRadius: const BorderRadius.only(
-                      //bottomLeft: Radius.circular(80)
+                      bottomLeft: Radius.circular(80)
                     ),
                   ),
                   child: Padding(
@@ -103,13 +96,109 @@ class _MonCompteClState extends State<MonCompteCl> {
               ],
             ),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-               
-              ],
-            ),
+        Padding(
+          padding: const EdgeInsets.only(top:200),
+          child: Container(
+            margin: EdgeInsets.all(8),
+            child: StreamBuilder(
+               stream: FirebaseFirestore.instance
+                       .collection('clients')
+                       .where("ID",isEqualTo: userId?.uid)
+                       .snapshots(),
+               builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                 if(snapshot.hasError){
+                   return Text("Something went wrong!");
+                 }
+                 if(snapshot.connectionState == ConnectionState.waiting){
+                   return  Center(
+                     child: CupertinoActivityIndicator(),
+                   );
+                 }
+                 if(snapshot.data!.docs.isEmpty){
+                   return Text('No Data Found!');
+                 }
+                 if(snapshot != null && snapshot.data != null){
+                   return Expanded(
+                     child: ListView.builder(
+                       itemCount: snapshot.data!.docs.length,
+                       itemBuilder: (context,index){
+                         var id = snapshot.data!.docs[index]['ID'];
+                         var nom = snapshot.data!.docs[index]['Nom'];
+                         var prenom = snapshot.data!.docs[index]['Prenom'];
+                         var email = snapshot.data!.docs[index]['Email'];
+                         var cni = snapshot.data!.docs[index]['CNI'];
+                         var phone = snapshot.data!.docs[index]['Phone'];
+                         var ville = snapshot.data!.docs[index]['Ville'];
+                         var adresse = snapshot.data!.docs[index]['Adresse'];
+                         return Card(
+                          margin: const EdgeInsets.all(1),
+                          elevation: 20,
+                           child: Column(
+                             children: [
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('ID :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(id),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('NOM :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(nom),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('PRENOM :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(prenom),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('EMAIL :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(email),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('CNI :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(cni),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('PHONE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(phone),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('VILLE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(ville),
+                                 ],
+                               )),
+                               ListTile(title: Row(
+                                 children: [
+                                   Text('ADRESSE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                   Text(adresse),
+                                 ],
+                               )),
+                                 
+                             ],
+                           ),
+                           
+                         );
+                       },
+                     ),
+                   );
+                   
+                 }
+                 return Container();
+               },
+             ),
           ),
+        ),
+
         ]
       ),
     );

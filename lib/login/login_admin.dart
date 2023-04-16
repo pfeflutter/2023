@@ -27,8 +27,8 @@ class _LoginAdminState extends State<LoginAdmin> {
 
 Future signIn() async {
   await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: 'flutter@gmail.com',
-    password: '123456',
+    email: _emailController.text.trim(),
+    password: _passwordController.text.trim(),
   );
 }
   

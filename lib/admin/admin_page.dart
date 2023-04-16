@@ -186,7 +186,6 @@ class _AdminPageState extends State<AdminPage> {
                 child: Container(
                   height: 600,
                   color: const Color.fromARGB(255, 255, 255, 255),
-                  // }),
                   child: ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (_, index) {
@@ -198,6 +197,7 @@ class _AdminPageState extends State<AdminPage> {
                           margin: const EdgeInsets.all(4),
                           elevation: 8,
                           child: ListTile(
+                            leading: Icon(Icons.person,size: 40,),
                             // shape: RoundedRectangleBorder(
                             //   borderRadius: BorderRadius.circular(10),
                             //   side: BorderSide(
@@ -206,8 +206,6 @@ class _AdminPageState extends State<AdminPage> {
                             // ),
                             title: Row(
                               children: [
-                                const Icon(Icons.person,size: 30,),
-                                const SizedBox(width: 10),
                                 Text(
                                   snapshot.data!.docChanges[index].doc['CNI'],
                                   style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
@@ -216,7 +214,6 @@ class _AdminPageState extends State<AdminPage> {
                             ),
                             subtitle: Row(
                               children: [
-                                const SizedBox(width: 40),
                                 Text(
                                   snapshot.data!.docChanges[index].doc['Nom'],
                                   style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
@@ -228,23 +225,17 @@ class _AdminPageState extends State<AdminPage> {
                                 ),
                               ],
                             ),
-                            
                             //econtentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           ),
                         ),
                       );
                     },
-                    
                   ),
                 ),
               ),
             );
             },
           ),
-           // const SizedBox(height: 25),
-
-          
-        
         ],
       ),
     );
