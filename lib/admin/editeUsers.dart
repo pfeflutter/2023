@@ -58,6 +58,7 @@ class _EditeUsersState extends State<EditeUsers> {
             onPressed: (){
               _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
               widget.docid.reference.update({
+                    'updatedAt': FieldValue.serverTimestamp(),
                     'Nom' : nomController.text,
                     'Prenom' : prenomController.text,
                     'CNI' : cniController.text,

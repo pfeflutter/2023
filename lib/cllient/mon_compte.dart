@@ -74,6 +74,18 @@ class _MonCompteClState extends State<MonCompteCl> {
                       ),
                       Column(
                         children: [
+                          // Container(
+                          //   margin: const EdgeInsets.only(top: 0),
+                          //   height: 80, width: 80,
+                          //   //alignment: Alignment.center,
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(12),
+                          //     color: Colors.blue,
+                          //   ),
+                          //   child: Center(
+                          //     child: Icon(Icons.person,color:Colors.white,size: 60,),
+                          //   ),
+                          // ),
                           Text(
                             'Mon Compte',
                             style: TextStyle(

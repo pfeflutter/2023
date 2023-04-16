@@ -16,7 +16,7 @@ class AddUserDialog extends StatefulWidget {
 }
 
 class _AddUserDialogState extends State<AddUserDialog> {
-  final ref = FirebaseFirestore.instance.collection('clients').doc();
+  final ref = FirebaseFirestore.instance.collection('clients').doc('rsl6cYTtUiexo9JsvAg4BQgvpTR2');
   //final _db = FirebaseFirestore.instance;
   //late DatabaseReference dbRef;
   var _auth = FirebaseAuth.instance;
@@ -81,6 +81,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                 widget.addUser(userr);
                 _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
                 ref.set({
+                    'CreatedAt': FieldValue.serverTimestamp(),
                     'Nom' : nomController.text,
                     'Prenom' : prenomController.text,
                     'CNI' : cniController.text,
