@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:welapp/admin/d_box.dart';
 import 'package:welapp/admin/editeUsers.dart';
 import 'package:welapp/admin/user.dart';
+import 'package:welapp/login.dart';
 
 class AdminPage extends StatefulWidget {
 
@@ -127,6 +128,12 @@ class _AdminPageState extends State<AdminPage> {
                           onPressed: () {
                             //Navigator.pop(context);
                             FirebaseAuth.instance.signOut();
+                            Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  LoginPage(),
+            ),
+          );
                           },
                           icon: const Icon(
                             Icons.exit_to_app,

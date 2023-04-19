@@ -1,3 +1,4 @@
+// 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -16,10 +17,10 @@ class AddUserDialog extends StatefulWidget {
 }
 
 class _AddUserDialogState extends State<AddUserDialog> {
-  final ref = FirebaseFirestore.instance.collection('clients').doc('rsl6cYTtUiexo9JsvAg4BQgvpTR2');
+  //final ref = FirebaseFirestore.instance.collection('clients').doc('rsl6cYTtUiexo9JsvAg4BQgvpTR2');
   //final _db = FirebaseFirestore.instance;
   //late DatabaseReference dbRef;
-  var _auth = FirebaseAuth.instance;
+ /// var _auth = FirebaseAuth.instance;
 
   final nomController = TextEditingController();
   final prenomController = TextEditingController();
@@ -28,7 +29,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
   final villeController = TextEditingController();
   final cniController = TextEditingController();
   final adresseController = TextEditingController();
-    User? currentUser = FirebaseAuth.instance.currentUser;
+   // User? currentUser = FirebaseAuth.instance.currentUser;
    
     // void initState() {
     //   super.initState();
@@ -75,12 +76,16 @@ class _AddUserDialogState extends State<AddUserDialog> {
             
 
 
-            ElevatedButton(
-              onPressed: (){
-                final userr = Utilisateur(nom: nomController.text, email: emailController.text, phoneNo: phoneNoController.text, prenom: prenomController.text, cni: cniController.text,ville: villeController.text, adresse: adresseController.text,id:ref.id);
-                widget.addUser(userr);
-                _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
-                ref.set({
+           ElevatedButton(
+               onPressed: ()async {
+                // final userr = Utilisateur(nom: nomController.text, email: emailController.text, phoneNo: phoneNoController.text,
+                //  prenom: prenomController.text, cni: cniController.text,ville: villeController.text, adresse: adresseController.text,);
+                // widget.addUser(userr);
+                
+                  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text)
+                  .then((value) {
+                    FirebaseFirestore.instance
+                    .collection('clients').doc(value.user!.uid).set({
                     'CreatedAt': FieldValue.serverTimestamp(),
                     'Nom' : nomController.text,
                     'Prenom' : prenomController.text,
@@ -89,12 +94,13 @@ class _AddUserDialogState extends State<AddUserDialog> {
                     'Phone' : phoneNoController.text,
                     'Ville' : villeController.text,
                     'Adresse' : adresseController.text,
-                    'ID' : ref.id,
+                    'ID' : value.user!.uid,
                 }).whenComplete(() {
                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AdminPage()));
+                   print('error');
                 });
                 //Navigator.of(context).pop();
-              },
+              });},
               child: Text('Add User')),
       
           ],

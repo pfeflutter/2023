@@ -6,6 +6,7 @@ import 'package:welapp/cllient/les_derangement/home_der.dart';
 import 'package:welapp/cllient/mes_fact.dart';
 import 'package:welapp/cllient/mes_lignes.dart';
 import 'package:welapp/cllient/mon_compte.dart';
+import 'package:welapp/login.dart';
 
 
 
@@ -232,6 +233,12 @@ Widget build(BuildContext context){
             GestureDetector(
               onTap: (){
                 FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  LoginPage(),
+            ),
+          );
               },
               child: const Text(
                 'sign out',

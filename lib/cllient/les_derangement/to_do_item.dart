@@ -12,7 +12,7 @@ class ToDoItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       child: ListTile(
-        onTap: () {
+        onTap: () { 
           //print('checked on this icon');
           onToDoChanged(todo);
         },
@@ -32,22 +32,12 @@ class ToDoItem extends StatelessWidget {
            // decoration: todo.isDone? TextDecoration.lineThrough : null,
             ),
             ),
-            trailing: Container(
-              padding: EdgeInsets.all(0),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              height: 35,
-              width: 35,
-              
-              // child: IconButton(
-              //   color: Colors.black,
-              //   iconSize: 18,
-              //   icon: Icon(Icons.delete/arrow_forward_ios/),
-              //   onPressed: (){
-              //     //print('Clicked on delet icon');
-              //     onDeleteItem(todo.id);
-              //   },
-              //)
-            ),
+            // trailing: Container(
+            //   padding: EdgeInsets.all(0),
+            //   margin: EdgeInsets.symmetric(vertical: 10),
+            //   height: 35,
+            //   width: 35,
+            // ),
       ),
             );
   }
