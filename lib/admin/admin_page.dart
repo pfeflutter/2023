@@ -20,11 +20,13 @@ class AdminPage extends StatefulWidget {
 
 class _AdminPageState extends State<AdminPage> {
   List<Utilisateur> userList = [];
+  String query = '';
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').snapshots();
   //AuthServices _ath = AuthServices();
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
+    
 
     void addUserData(Utilisateur user){
       setState(() {
@@ -129,11 +131,11 @@ class _AdminPageState extends State<AdminPage> {
                             //Navigator.pop(context);
                             FirebaseAuth.instance.signOut();
                             Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>  LoginPage(),
-            ),
-          );
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>  LoginPage(),
+                              ),
+                            );
                           },
                           icon: const Icon(
                             Icons.exit_to_app,
@@ -151,10 +153,16 @@ class _AdminPageState extends State<AdminPage> {
                   color: Colors.blue[600],
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Padding(
+
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     //onChanged: (value) => _runFilter(value),
+                    onChanged: (value) {
+    setState(() {
+      query = value;
+    });
+  },
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       icon: Icon(

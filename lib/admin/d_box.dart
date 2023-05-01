@@ -36,6 +36,8 @@ class _AddUserDialogState extends State<AddUserDialog> {
     //   dbRef = FirebaseDatabase.instance.ref().child('Clients');
     // }
 
+  List<String> _colors = ['Internet ADSL', 'Fibre optique', 'Internet satellite','Internet 4G'];
+  String _selectedLigne = 'Internet 4G';
   @override
   Widget build(BuildContext context) {
     
@@ -49,7 +51,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
               borderSide: BorderSide(
                 color: Colors.black38,
               ),
-            )
+            ),
           ),
           controller: controller,
         ),
@@ -67,13 +69,41 @@ class _AddUserDialogState extends State<AddUserDialog> {
           children: [
             Text('Add User',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 32),),
             buildTextfield('Nom',nomController),
-            buildTextfield('om',prenomController),
+            buildTextfield('Prenom',prenomController),
             buildTextfield('Email',emailController),
             buildTextfield('Phone',phoneNoController),
             buildTextfield('CNI',cniController),
             buildTextfield('Ville',villeController),
             buildTextfield('Adresse',adresseController),
-            
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 6,right: 0),
+                // decoration: BoxDecoration(
+                //   border: Border.all(color: Colors.grey,width: 1),
+                //   borderRadius: BorderRadius.circular(4),
+                // ),
+                child: DropdownButton(
+                  value: _selectedLigne,
+                  //hint: Text('Type Ligne'),
+                  //dropdownColor: Colors.white,
+                  iconSize: 36,
+                  isExpanded: true,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedLigne = value!;
+                    });
+                  },
+                  items: _colors.map((color) {
+                    return DropdownMenuItem(
+                      value: color,
+                      child: Text(color),
+                    );
+                  }).toList(),
+              
+                ),
+              ),
+            ),
 
 
            ElevatedButton(
@@ -95,6 +125,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                     'Ville' : villeController.text,
                     'Adresse' : adresseController.text,
                     'ID' : value.user!.uid,
+                    'Type Ligne': _selectedLigne,
                 }).whenComplete(() {
                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AdminPage()));
                    print('error');
