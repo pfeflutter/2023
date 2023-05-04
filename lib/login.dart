@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
 
         print('Document does not exist on the database');
-      }
+      }});
       FirebaseFirestore.instance.collection('admin').doc(user.uid).get().then((DocumentSnapshot documentSnapshot){
         if (documentSnapshot.get('Nom') == "Admin") {
           Navigator.pushReplacement(
@@ -222,7 +222,17 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
       });
-    });
+      FirebaseFirestore.instance.collection('agents').doc(user.uid).get().then((DocumentSnapshot documentSnapshot){
+        if (documentSnapshot.get('Nom') == "Agent") {
+          Navigator.pushReplacement(
+            context, 
+            MaterialPageRoute(
+              builder: (context) =>  AgentPage(),
+            ),
+          );
+        }
+      });
+    
   }
 
   void signIn(String email, String password) async {

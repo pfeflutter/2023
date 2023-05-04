@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MesLignesCl extends StatefulWidget {
@@ -8,6 +11,7 @@ class MesLignesCl extends StatefulWidget {
 }
 
 class _MesLignesClState extends State<MesLignesCl> {
+  User? userId = FirebaseAuth.instance.currentUser;
    
   @override
   Widget build(BuildContext context){
@@ -18,13 +22,12 @@ class _MesLignesClState extends State<MesLignesCl> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //SizedBox(height: 20,),
                 Container(
-                  height: 200,
+                  height: 380,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 107, 189, 227),
                     borderRadius: const BorderRadius.only(
-                      //bottomLeft: Radius.circular(80)
+                      bottomLeft: Radius.circular(80)
                     ),
                   ),
                   child: Padding(
@@ -96,6 +99,53 @@ class _MesLignesClState extends State<MesLignesCl> {
                 ) 
                
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top:200),
+            child: Container(
+              margin: EdgeInsets.all(8),
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                       .collection('clients')
+                       .where("ID",isEqualTo: userId?.uid)
+                       .snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if(snapshot.hasError){
+                   return Text("Something went wrong!");
+                 }
+                 if(snapshot.connectionState == ConnectionState.waiting){
+                   return  Center(
+                     child: CupertinoActivityIndicator(),
+                   );
+                 }
+                 if(snapshot.data!.docs.isEmpty){
+                   return Text('No Data Found!');
+                 }
+                 if(snapshot != null && snapshot.data != null){
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                                            return Card(
+                      child: Column(
+                        children: [
+                          ListTile(title: Row(
+                            children: [
+                              Text('Type Ligne : ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+                              Text(snapshot.data!.docs[index]['Type Ligne']),
+                            ],
+                          )),
+                        ],
+                      ),
+                    );
+                      },
+                    ),
+                  );
+                 }
+                 return Container();
+                },
+              ),
             ),
           ),
         ]
