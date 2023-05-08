@@ -36,7 +36,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
     //   dbRef = FirebaseDatabase.instance.ref().child('Clients');
     // }
 
-  List<String> _colors = ['Internet ADSL', 'Fibre optique', 'Internet satellite','Internet 4G'];
+  List<String> _typeLigne = ['Internet ADSL', 'Fibre optique', 'Internet satellite','Internet 4G'];
   String _selectedLigne = 'Internet 4G';
   @override
   Widget build(BuildContext context) {
@@ -94,10 +94,10 @@ class _AddUserDialogState extends State<AddUserDialog> {
                       _selectedLigne = value!;
                     });
                   },
-                  items: _colors.map((color) {
+                  items: _typeLigne.map((typeL) {
                     return DropdownMenuItem(
-                      value: color,
-                      child: Text(color),
+                      value: typeL,
+                      child: Text(typeL),
                     );
                   }).toList(),
               

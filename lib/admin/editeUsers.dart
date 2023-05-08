@@ -21,6 +21,7 @@ class _EditeUsersState extends State<EditeUsers> {
   var villeController = TextEditingController();
   var cniController = TextEditingController();
   var adresseController = TextEditingController();
+  //var typeLController = TextEditingController();
 
   void initState(){
     nomController = TextEditingController(text: widget.docid.get('Nom'));
@@ -30,6 +31,7 @@ class _EditeUsersState extends State<EditeUsers> {
     emailController = TextEditingController(text: widget.docid.get('Email'));
     phoneNoController = TextEditingController(text: widget.docid.get('Phone'));
     villeController = TextEditingController(text: widget.docid.get('Ville'));
+    //typeLController = TextEditingController(text: widget.docid.get('Type Ligne'));
   }
   @override
   Widget build(BuildContext context) {
@@ -95,6 +97,7 @@ class _EditeUsersState extends State<EditeUsers> {
                 buildTextfield('CNI',cniController),
                 buildTextfield('Ville',villeController),
                 buildTextfield('Adresse',adresseController),
+                //buildTextfield('Adresse',typeLController),
               ],
             ),
           ),

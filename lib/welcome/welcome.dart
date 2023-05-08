@@ -23,7 +23,10 @@ class WelcomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Image(
-              image: AssetImage('assets/images/logo11.png'),
+              //image: AssetImage('assets/images/logo11.png'),
+              image: AssetImage('assets/images/tele1.png'),
+              width: 300, // specify desired width
+              height: 200, // specify desired height
               //fit: BoxFit.cover
             ),
               // const Text(
@@ -40,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                 // ignore: deprecated_member_use
                 primary: const Color.fromARGB(255, 121, 64, 195),
                 textStyle: const TextStyle(fontSize: 25),
-                padding: const EdgeInsets.fromLTRB(100,20,100,20),
+                padding: const EdgeInsets.fromLTRB(80,10,80,10),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),

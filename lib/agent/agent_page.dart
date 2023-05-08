@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:welapp/admin/editeUsers.dart';
+import 'package:welapp/agent/derUsers.dart';
 import 'package:welapp/login.dart';
 
 import 'contact.dart';
@@ -15,7 +16,8 @@ class AgentPage extends StatefulWidget {
 }
 
 class _AgentPageState extends State<AgentPage> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').doc().collection('Derangements').snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
+
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
@@ -125,10 +127,16 @@ class _AgentPageState extends State<AgentPage> {
               ],
             ),
           ),
-           StreamBuilder(
-            stream: _usersStream,
-            builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
-              if(snapshot.hasError) {
+          Padding(
+            padding: const EdgeInsets.only(top:0),
+            child: Container(
+              margin: EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  StreamBuilder(
+                    stream: _usersStream,
+                    builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                         if(snapshot.hasError) {
                 return const Text('something is wrong');
               }
               if(snapshot.connectionState == ConnectionState.waiting) {
@@ -136,7 +144,7 @@ class _AgentPageState extends State<AgentPage> {
                   child: CircularProgressIndicator(),
                 );
               }
-            return Expanded(
+                         return Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 230),
                 child: Container(
@@ -147,7 +155,7 @@ class _AgentPageState extends State<AgentPage> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>EditeUsers(docid: snapshot.data!.docs[index],)));
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>DerUsers(docid: snapshot.data!.docs[index],)));
                         },
                         child: Card(
                           margin: const EdgeInsets.all(4),
@@ -190,7 +198,11 @@ class _AgentPageState extends State<AgentPage> {
                 ),
               ),
             );
-            },
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
         ]
       ),
