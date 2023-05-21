@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/admin_page.dart';
+import 'package:intl/intl.dart';
 
 class EditeUsers extends StatefulWidget {
   DocumentSnapshot docid;
@@ -13,6 +14,8 @@ class EditeUsers extends StatefulWidget {
 
 class _EditeUsersState extends State<EditeUsers> {
   final _auth = FirebaseAuth.instance;
+  final now = DateTime.now();
+
 
   var  nomController = TextEditingController();
   var prenomController = TextEditingController();
@@ -35,7 +38,8 @@ class _EditeUsersState extends State<EditeUsers> {
   }
   @override
   Widget build(BuildContext context) {
-    
+      final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+// This will give you the date string in "yyyy-MM-dd HH:mm:ss" format
      Widget buildTextfield(String hint, TextEditingController controller) {
       return Container(
         margin: EdgeInsets.all(4),
@@ -56,34 +60,11 @@ class _EditeUsersState extends State<EditeUsers> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          MaterialButton(
-            onPressed: (){
-              _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
-              widget.docid.reference.update({
-                    'updatedAt': FieldValue.serverTimestamp(),
-                    'Nom' : nomController.text,
-                    'Prenom' : prenomController.text,
-                    'CNI' : cniController.text,
-                    'Email' : emailController.text,
-                    'Phone' : phoneNoController.text,
-                    'Ville' : villeController.text,
-                    'Adresse' : adresseController.text,
-              }).whenComplete(() {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AdminPage()));
-              });
-            },
-            child: Text("Save"),
-          ),
-          MaterialButton(
-            onPressed: (){
-              widget.docid.reference.delete().whenComplete(() {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
-              });
-            },
-            child: Text('Delete'),
-          )
+
         ],
       ),
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -98,6 +79,44 @@ class _EditeUsersState extends State<EditeUsers> {
                 buildTextfield('Ville',villeController),
                 buildTextfield('Adresse',adresseController),
                 //buildTextfield('Adresse',typeLController),
+                //////////////////
+                MaterialButton(
+                  onPressed: (){
+                    _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
+                    widget.docid.reference.update({
+                      //'updatedAt': FieldValue.serverTimestamp(),
+                      'updatedAt': formattedDate,
+                      'Nom' : nomController.text,
+                      'Prenom' : prenomController.text,
+                      'CNI' : cniController.text,
+                      'Email' : emailController.text,
+                      'Phone' : phoneNoController.text,
+                      'Ville' : villeController.text,
+                      'Adresse' : adresseController.text,
+                    }).whenComplete(() {
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AdminPage()));
+                      });
+                  },
+                  child: Text("Enregistrer"),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: Colors.transparent, 
+                  textColor: Colors.white,
+                  splashColor: Colors.grey,
+                  highlightColor: Colors.blueAccent,
+                ),
+
+          //////////////delete///////////////
+                   MaterialButton(
+            onPressed: (){
+              widget.docid.reference.delete().whenComplete(() {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
+              });
+            },
+            child: Text('Supprimer'),
+          )
+
               ],
             ),
           ),

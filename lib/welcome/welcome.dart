@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:welapp/espace/espace_page.dart';
 import 'package:welapp/login.dart';
+import 'package:welapp/login/login_client.dart';
 
 
 class WelcomePage extends StatelessWidget {
@@ -24,10 +25,10 @@ class WelcomePage extends StatelessWidget {
             children: [
               const Image(
               //image: AssetImage('assets/images/logo11.png'),
-              image: AssetImage('assets/images/tele1.png'),
-              width: 300, // specify desired width
+              image: AssetImage('assets/images/uuu.png'),
+              width: 200, // specify desired width
               height: 200, // specify desired height
-              //fit: BoxFit.cover
+              fit: BoxFit.cover,
             ),
               // const Text(
               //   'Welcome',
@@ -41,7 +42,8 @@ class WelcomePage extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                 // ignore: deprecated_member_use
-                primary: const Color.fromARGB(255, 121, 64, 195),
+                //primary: const Color.fromARGB(255, 121, 64, 195),
+                 primary: Colors.blue,
                 textStyle: const TextStyle(fontSize: 25),
                 padding: const EdgeInsets.fromLTRB(80,10,80,10),
                 shape: const RoundedRectangleBorder(
@@ -53,7 +55,8 @@ class WelcomePage extends StatelessWidget {
 
                 },
                 child: const Text(
-                  'Get Started',
+                  //'Get Started',
+                  'Démarrer',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Inspiration',
