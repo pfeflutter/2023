@@ -55,7 +55,7 @@ class _AdminPageState extends State<AdminPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: showUserDialog,
         // () {Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddUsersDialog()));},
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.person_add),
       ),
       backgroundColor: Colors.blue[800],
       body: Stack(

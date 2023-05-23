@@ -8,6 +8,7 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
+   User? userId = FirebaseAuth.instance.currentUser;
   String _monTexte = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -50,11 +51,13 @@ class _MyListViewState extends State<MyListView> {
     String uid = _auth.currentUser!.uid;
     for (String option in _selectedOptions) {
       await _firestore
-          .collection("clients")
-          .doc(uid)
-          .collection("Derangements")
-          .doc(option)
-          .set({"selected": true});
+          .collection("hhh")
+          .doc()
+          // .collection("Derangements")
+          // .doc(option)
+          .set({"der":option,
+          });
+          //"selected": true
     }
   }
 
@@ -350,11 +353,11 @@ class _MyListViewState extends State<MyListView> {
     //   'texte': texteSaisi,
     // });
     FirebaseFirestore.instance
-    .collection("clients")
-          .doc(uid)
-          .collection("Derangements")
-          .doc(texteSaisie)
-          .set({"selected": true});
+    .collection("hhh")
+          .doc()
+          //.collection("Derangements")
+          //.doc(texteSaisie)
+          .set({"sele": texteSaisie});
 
   }
 }

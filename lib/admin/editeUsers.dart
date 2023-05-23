@@ -80,43 +80,55 @@ class _EditeUsersState extends State<EditeUsers> {
                 buildTextfield('Adresse',adresseController),
                 //buildTextfield('Adresse',typeLController),
                 //////////////////
-                MaterialButton(
-                  onPressed: (){
-                    _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
-                    widget.docid.reference.update({
-                      //'updatedAt': FieldValue.serverTimestamp(),
-                      'updatedAt': formattedDate,
-                      'Nom' : nomController.text,
-                      'Prenom' : prenomController.text,
-                      'CNI' : cniController.text,
-                      'Email' : emailController.text,
-                      'Phone' : phoneNoController.text,
-                      'Ville' : villeController.text,
-                      'Adresse' : adresseController.text,
-                    }).whenComplete(() {
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AdminPage()));
-                      });
-                  },
-                  child: Text("Enregistrer"),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.transparent, 
-                  textColor: Colors.white,
-                  splashColor: Colors.grey,
-                  highlightColor: Colors.blueAccent,
-                ),
+                SizedBox(height: 60,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MaterialButton(
+                      onPressed: (){
+                        _auth.createUserWithEmailAndPassword(email: emailController.text, password: cniController.text);
+                        widget.docid.reference.update({
+                          //'updatedAt': FieldValue.serverTimestamp(),
+                          'updatedAt': formattedDate,
+                          'Nom' : nomController.text,
+                          'Prenom' : prenomController.text,
+                          'CNI' : cniController.text,
+                          'Email' : emailController.text,
+                          'Phone' : phoneNoController.text,
+                          'Ville' : villeController.text,
+                          'Adresse' : adresseController.text,
+                        }).whenComplete(() {
+                            Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AdminPage()));
+                          });
+                      },
+                      child: Text("Enregistrer"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.blue[800], 
+                      textColor: Colors.white,
+                      splashColor: Colors.grey,
+                      highlightColor: Colors.blueAccent,
+                    ),
+                  
+                    SizedBox(width: 20),
 
           //////////////delete///////////////
-                   MaterialButton(
-            onPressed: (){
-              widget.docid.reference.delete().whenComplete(() {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
-              });
-            },
-            child: Text('Supprimer'),
-          )
-
+                    MaterialButton(
+                      onPressed: (){
+                        widget.docid.reference.delete().whenComplete(() {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
+                        });
+                      },
+                      child: Text('Supprimer'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.blue[800], 
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

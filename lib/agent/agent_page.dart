@@ -16,8 +16,8 @@ class AgentPage extends StatefulWidget {
 }
 
 class _AgentPageState extends State<AgentPage> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
-
+ final Stream<QuerySnapshot> _usersStreamm = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
+ final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('hhh').snapshots();  
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
@@ -171,24 +171,24 @@ class _AgentPageState extends State<AgentPage> {
                             title: Row(
                               children: [
                                 Text(
-                                  snapshot.data!.docChanges[index].doc['CNI'],
-                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
+                                  snapshot.data!.docChanges[index].doc['der'],
+                                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),
                                 ),
                               ],
                             ),
-                            subtitle: Row(
-                              children: [
-                                Text(
-                                  snapshot.data!.docChanges[index].doc['Nom'],
-                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  snapshot.data!.docChanges[index].doc['Prenom'],
-                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
-                                ),
-                              ],
-                            ),
+                            // subtitle: Row(
+                            //   children: [
+                            //     Text(
+                            //       snapshot.data!.docChanges[index].doc['Nom'],
+                            //       style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                            //     ),
+                            //     const SizedBox(width: 10),
+                            //     Text(
+                            //       snapshot.data!.docChanges[index].doc['Prenom'],
+                            //       style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                            //     ),
+                            //   ],
+                            // ),
                             //econtentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           ),
                         ),
