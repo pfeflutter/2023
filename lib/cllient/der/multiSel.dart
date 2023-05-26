@@ -8,18 +8,22 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
-   User? userId = FirebaseAuth.instance.currentUser;
+  User? userId = FirebaseAuth.instance.currentUser;
   String _monTexte = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool? _isChecked = false; 
   bool? _showText = false;
   TextEditingController _textController = TextEditingController();
-    @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
+  
+
+  late User signedInUser;
+
+  //   @override
+  // void dispose() {
+  //   _textController.dispose();
+  //   super.dispose();
+  // }
   List<String> _derangements = [
     "Ma ligne n'est pas active",
     "Deconnexion d'interne",
@@ -46,18 +50,47 @@ class _MyListViewState extends State<MyListView> {
     });
   }
 
+
   // Enregistre les options sélectionnées dans Firestore
   Future<void> _saveSelectedOptions() async {
     String uid = _auth.currentUser!.uid;
+    //var nom = _firestore.collection("clients").doc(uid).get().then((doc) => 'Nom');
+    final CollectionReference usersCollection = FirebaseFirestore.instance.collection('clients');
+
+    DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
+
+    Object username = userDoc.data()!;
+
     for (String option in _selectedOptions) {
+
       await _firestore
-          .collection("hhh")
+          .collection("derangements")
           .doc()
           // .collection("Derangements")
           // .doc(option)
-          .set({"der":option,
+          .set({
+            "der":option,
+            "Nom" : username,
+             //"Email" : signedInUser,
           });
           //"selected": true
+    }
+  }
+
+  // void getData() async {
+  //   final mssgs = await _firestore.collection('clients').get();
+  //   for(var mssg in mssgs.docs) {
+  //     print(mssg.data());
+  //   }
+  // }
+
+  void mssgStreams() async {
+    await for (var snapshot in _firestore.collection('clients').snapshots()) {
+      for (var m in snapshot.docs) {
+        //print(m.data());
+        final mt = m.get('Nom');
+        Text('$mt');
+      }
     }
   }
 
@@ -169,7 +202,7 @@ class _MyListViewState extends State<MyListView> {
             ),
           ),
           Padding(
-          padding: const EdgeInsets.only(top: 180),
+          padding: const EdgeInsets.only(top: 190),
             child: Column(
               children: [
                 Expanded(
@@ -206,7 +239,7 @@ class _MyListViewState extends State<MyListView> {
                   ),
                 ),
                           CheckboxListTile(
-          title: Text('Autre'),
+                    title: Text('Autre'),
                  value: _isChecked,
                 onChanged: (bool? value) {
                   setState(() {
@@ -248,116 +281,47 @@ class _MyListViewState extends State<MyListView> {
            _sauvegarderDonnees();
            Navigator.pop(context);
          },
+        // onPressed: () {
+        //   mssgStreams();
+        // },
       ),
 
-      // appBar: AppBar(
-      //   title: Text("Sélectionnez des options"),
-      // ),
-      // body: SafeArea(
-      //   child: Container(
-      //     child: Column(
-      //       children: [
-      //         Expanded(
-      //           child: _derangements.isEmpty
-      //               ? Center(
-      //                   child: CircularProgressIndicator(),
-      //                 )
-      //               : ListView.builder(
-      //                   itemCount: _derangements.length,
-      //                   itemBuilder: (BuildContext context, int index) {
-      //                     String option = _derangements[index];
-      //                     bool selected = _selectedOptions.contains(option);
-      //                     return ListTile(
-      //                       title: Text(option),
-      //                       trailing: Checkbox(
-      //                         value: selected,
-      //                         onChanged: (value) {
-      //                           setState(() {
-      //                             if (value != null) {
-      //                               _selectedOptions.add(option);
-      //                             } else {
-      //                               _selectedOptions.remove(option);
-      //                             }
-      //               //               if (value == true && _derangements[index] == 'Autre') {
-      //               //   // Ajouter ici la condition pour nom1
-      //               // }
-      //                           });
-      //                         },
-      //                       ),
-      //                       onTap: () {
-      //                         setState(() {
-      //                           if (selected) {
-      //                             _selectedOptions.remove(option);
-      //                           } else {
-      //                             _selectedOptions.add(option);
-      //                           }
-      //                         });
-      //                       },
-      //                     );
-      //                   },
-      //                 ),
-                      
-                      
-      //         ),
-      //         Padding(
-      //           padding: const EdgeInsets.only(bottom:10),
-      //           child: CheckboxListTile(
-      //           title: Text('Autre'),
-      //           value: _isChecked,
-      //           onChanged: (bool? value) {
-      //             setState(() {
-      //               _isChecked = value;
-      //               _showText = value;
-      //             });
-      //           },
-      //           ),
-      //         ),
-      //         if (_showText!) Padding(
-      //           padding: const EdgeInsets.only(bottom:100),
-      //           child: TextFormField(
-      //             controller: _textController,
-      //             decoration: InputDecoration(
-      //             labelText: 'Quelque chose à écrire ?',
-      //             border: OutlineInputBorder(),
-      //             ),
-      //           onChanged: (value) {
-      //             _monTexte = value;
-      //           },
-      //           validator: (value) {
-      //           if (value!.isEmpty) {
-      //             return 'Veuillez entrer quelque chose';
-      //           }
-      //           return null;
-      //           },
-      //                      ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.send),
-      //   onPressed: () async {
-      //     await _saveSelectedOptions();
-      //     _sauvegarderDonnees();
-      //     Navigator.pop(context);
-      //   },
-      // ),
     );
   }
-  void _sauvegarderDonnees() {
+  Future<void> _sauvegarderDonnees() async {
     String texteSaisie = _textController.text;
     String uid = _auth.currentUser!.uid;
     // Stocker les données dans Firestore
     // FirebaseFirestore.instance.collection('monCollection').doc().set({
     //   'texte': texteSaisi,
     // });
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    //CollectionReference users = firestore.collection('clients').doc(uid).snapshots() as CollectionReference<Object?>;
+    //QuerySnapshot querySnapshot = await users.get();
+    //var idd = users.get('ID' as GetOptions?);
+    // QuerySnapshot snapshot =
+    //     (await FirebaseFirestore.instance.collection('clients').doc(uid).get()) as QuerySnapshot<Object?>;
+    
+    final CollectionReference usersCollection = FirebaseFirestore.instance.collection('clients');
+
+    DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
+
+    Object username = userDoc.data()!;
+    
+
     FirebaseFirestore.instance
-    .collection("hhh")
+    .collection("derangements")
           .doc()
           //.collection("Derangements")
           //.doc(texteSaisie)
-          .set({"sele": texteSaisie});
+          .set({
+           // if(texteSaisie){
+            "der": texteSaisie,
+            "Nom" : username,
+            //},
+           //"ID" : users.get('ID' as GetOptions?),
+          }
+         );
 
   }
 }

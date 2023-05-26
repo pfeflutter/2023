@@ -15,7 +15,47 @@ class EditeUsers extends StatefulWidget {
 class _EditeUsersState extends State<EditeUsers> {
   final _auth = FirebaseAuth.instance;
   final now = DateTime.now();
-
+  bool _isDeleting = false;
+  ////////////////////
+  void _handleDelete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmer la suppression'),
+          content: Text('Êtes-vous sûr de vouloir supprimer cet élément ?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                widget.docid.reference.delete().whenComplete(() {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
+                });
+                setState(() {
+                  _isDeleting = true;
+                });
+                _performDelete();
+              },
+              child: Text('Oui'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Annuler'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  //////////////////////////////////////
+  void _performDelete() async {
+    // Code pour supprimer l'élément ici
+    setState(() {
+      _isDeleting = false;
+    });
+  }
+  //////////////////////
 
   var  nomController = TextEditingController();
   var prenomController = TextEditingController();
@@ -115,12 +155,8 @@ class _EditeUsersState extends State<EditeUsers> {
 
           //////////////delete///////////////
                     MaterialButton(
-                      onPressed: (){
-                        widget.docid.reference.delete().whenComplete(() {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>AdminPage()));
-                        });
-                      },
-                      child: Text('Supprimer'),
+                      onPressed: _isDeleting ? null : _handleDelete,
+                      child: _isDeleting ? CircularProgressIndicator() :  Text('Supprimer'),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

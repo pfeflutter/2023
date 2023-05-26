@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:welapp/admin/editeUsers.dart';
 import 'package:welapp/agent/derUsers.dart';
 import 'package:welapp/login.dart';
-
+import 'package:rxdart/rxdart.dart';
 import 'contact.dart';
 import 'new_client.dart';
 
@@ -16,8 +16,18 @@ class AgentPage extends StatefulWidget {
 }
 
 class _AgentPageState extends State<AgentPage> {
- final Stream<QuerySnapshot> _usersStreamm = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
- final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('hhh').snapshots();  
+  final Stream<QuerySnapshot> _usersStreamm = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('derangements').snapshots();  
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  void mssgStreams() async {
+    await for (var snapshot in _firestore.collection('hhh').snapshots()) {
+      for (var m in snapshot.docs) {
+        m.data();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var time = DateTime.now();
@@ -144,7 +154,7 @@ class _AgentPageState extends State<AgentPage> {
                   child: CircularProgressIndicator(),
                 );
               }
-                         return Expanded(
+            return Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(top: 230),
                 child: Container(
@@ -171,25 +181,29 @@ class _AgentPageState extends State<AgentPage> {
                             title: Row(
                               children: [
                                 Text(
-                                  snapshot.data!.docChanges[index].doc['der'],
-                                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),
+                                  snapshot.data!.docChanges[index].doc['Nom.Nom'],
+                                  style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color: Colors.black),
                                 ),
+                                // Text(
+                                //   snapshot.data!.docChanges[index].doc['ID'],
+                                //   style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),
+                                // ),
                               ],
                             ),
-                            // subtitle: Row(
-                            //   children: [
-                            //     Text(
-                            //       snapshot.data!.docChanges[index].doc['Nom'],
-                            //       style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
-                            //     ),
-                            //     const SizedBox(width: 10),
-                            //     Text(
-                            //       snapshot.data!.docChanges[index].doc['Prenom'],
-                            //       style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
-                            //     ),
-                            //   ],
-                            // ),
-                            //econtentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  snapshot.data!.docChanges[index].doc['Nom.Prenom'],
+                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                                ),
+                                const SizedBox(width: 10),
+                                // Text(
+                                //   snapshot.data!.docChanges[index].doc['Prenom.Email'],
+                                //   style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
+                                // ),
+                              ],
+                            ),
+                            //contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           ),
                         ),
                       );
@@ -204,7 +218,37 @@ class _AgentPageState extends State<AgentPage> {
               ),
             ),
           ),
-        ]
+
+      //  Padding(
+      //    padding: const EdgeInsets.only(top: 200),
+      //    child: Expanded(
+      //      child: StreamBuilder(
+      //           stream: CombineLatestStream.combine2(
+      //       FirebaseFirestore.instance.collection('clients').snapshots(),
+      //       FirebaseFirestore.instance.collection('hhh').snapshots(),
+      //       (QuerySnapshot usersSnapshot, QuerySnapshot customersSnapshot) {
+      //         List<DocumentSnapshot> combined = [];
+      //         combined.addAll(usersSnapshot.docs);
+      //         combined.addAll(customersSnapshot.docs);
+      //         return combined;
+      //       },
+      //          ),
+      //          builder: (context, AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+      //       if (!snapshot.hasData) {
+      //         return CircularProgressIndicator();
+      //       }
+      //       return ListView.builder(
+      //         itemCount: snapshot.data?.length,
+      //         itemBuilder: (context, index) => ListTile(
+      //           //title: Text(snapshot.data![index]['Nom']),
+      //           subtitle: Text(snapshot.data![index]['ID']),
+      //         ),
+      //       );
+      //          },
+      //         ),
+      //    ),
+      //  )
+        ],
       ),
       
        

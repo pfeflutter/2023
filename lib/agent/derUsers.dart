@@ -39,6 +39,7 @@ class _DerUsersState extends State<DerUsers> {
   var cniController = TextEditingController();
   var adresseController = TextEditingController();
   
+  
   get user => null;
 
 
@@ -77,9 +78,9 @@ class _DerUsersState extends State<DerUsers> {
     // cniController = TextEditingController(text: widget.docid.get('CNI'));
     // emailController = TextEditingController(text: widget.docid.get('Email'));
     // phoneNoController = TextEditingController(text: widget.docid.get('Phone'));
-    villeController = TextEditingController(text:  widget.docid.get('Ville'));
+    //villeController = TextEditingController(text:  widget.docid.get('der'));
     //_getOptions();
-
+    
     super.initState();
   }
   @override
@@ -112,12 +113,18 @@ class _DerUsersState extends State<DerUsers> {
           child: Container(
             child: Column(
               children: [
+                Text(
+                  widget.docid.get('der'),
+                  style: TextStyle(
+                    fontSize: 20,fontWeight: FontWeight.bold,
+                  ),
+                )
                 // buildTextfield('Nom',nomController),
                 // buildTextfield('Prenom',prenomController),
                 // buildTextfield('Email',emailController),
                 // buildTextfield('Phone',phoneNoController),
                 // buildTextfield('CNI',cniController),
-                 buildTextfield('Ville',villeController),
+                // buildTextfield('Ville',villeController),
                 // buildTextfield('Adresse',adresseController),
                 // StreamBuilder(
                 //   stream: FirebaseFirestore.instance

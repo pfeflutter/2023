@@ -67,12 +67,13 @@ class _AddUserDialogState extends State<AddUserDialog> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Text('Add User',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 32),),
+            Text('Ajoute un Client',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+            SizedBox(height: 20,),
             buildTextfield('Nom',nomController),
             buildTextfield('Prenom',prenomController),
             buildTextfield('Email',emailController),
             buildTextfield('Phone',phoneNoController),
-            buildTextfield('CNI',cniController),
+            buildTextfield('CIN',cniController),
             buildTextfield('Ville',villeController),
             buildTextfield('Adresse',adresseController),
             Padding(
@@ -132,7 +133,7 @@ class _AddUserDialogState extends State<AddUserDialog> {
                 });
                 //Navigator.of(context).pop();
               });},
-              child: Text('Add User')),
+              child: Text('Ajout')),
       
           ],
         ),
