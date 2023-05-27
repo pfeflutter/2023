@@ -104,66 +104,118 @@ class _DerUsersState extends State<DerUsers> {
     }
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Détails',style: TextStyle(),),
+        centerTitle: true,
+      ),
 
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            child: Column(
-              children: [
-                Text(
-                  widget.docid.get('der'),
-                  style: TextStyle(
-                    fontSize: 20,fontWeight: FontWeight.bold,
+          padding: const EdgeInsets.all(20),
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('    Nom : ${widget.docid.get('Nom.Nom')}'),
+              SizedBox(height: 8),
+              Text('    Prenom : ${widget.docid.get('Nom.Prenom')}'),
+              SizedBox(height: 8),
+              Text('    Numéro de telephone : ${widget.docid.get('Nom.Phone')}'),
+              SizedBox(height: 8),
+              Text('    Adresse : ${widget.docid.get('Nom.Adresse')}'),
+              SizedBox(height: 8),
+              Text('    Date : ${widget.docid.get('date')}'),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Container(
+                  height: 200,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 249, 249, 249),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey, width: 1),
                   ),
-                )
-                // buildTextfield('Nom',nomController),
-                // buildTextfield('Prenom',prenomController),
-                // buildTextfield('Email',emailController),
-                // buildTextfield('Phone',phoneNoController),
-                // buildTextfield('CNI',cniController),
-                // buildTextfield('Ville',villeController),
-                // buildTextfield('Adresse',adresseController),
-                // StreamBuilder(
-                //   stream: FirebaseFirestore.instance
-                //         .collection("clients")
-                //         .doc()
-                //         .collection("Derangements").get(),
-                //   builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
-                //     if(snapshot.hasError){
-                //    return Text("Something went wrong!");
-                //  }
-                //  if(snapshot.connectionState == ConnectionState.waiting){
-                //    return  Center(
-                //      child: CupertinoActivityIndicator(),
-                //    );
-                //  }
-                //  if(snapshot.data!.docs.isEmpty){
-                //    return Text('No Data Found!');
-                //  }
-                //  if(snapshot != null && snapshot.data != null){
-                //   return Expanded(
-                //     child: ListView.builder(
-                //       itemCount: snapshot.data!.docs.length,
-                //       itemBuilder: (context,index){
-                //         return Card(
-                //           child: Column(
-                //             children: [
-                              
-                //             ],
-                //           ),
-                //         );
-                //       }
-                //     ),
-                //   );
-                //  }
-                //   }
-                // ),
-              ],
-            ),
+                  //color: Color.fromARGB(255, 214, 214, 214),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Dérangement :'),
+                        SizedBox(height: 20),
+                        Text(
+                          '   ${widget.docid.get('der')}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ),
+              ),
+
+            ],
+
           ),
+          // child: Container(
+          //   child: Column(
+          //     children: [
+          //       Text(
+          //         widget.docid.get('Nom.Nom'),
+          //         style: TextStyle(
+          //           fontSize: 20,fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       SizedBox(height: 10),
+          //       Text( widget.docid.get('date'),)
+          //       // buildTextfield('Nom',nomController),
+          //       // buildTextfield('Prenom',prenomController),
+          //       // buildTextfield('Email',emailController),
+          //       // buildTextfield('Phone',phoneNoController),
+          //       // buildTextfield('CNI',cniController),
+          //       // buildTextfield('Ville',villeController),
+          //       // buildTextfield('Adresse',adresseController),
+          //       // StreamBuilder(
+          //       //   stream: FirebaseFirestore.instance
+          //       //         .collection("clients")
+          //       //         .doc()
+          //       //         .collection("Derangements").get(),
+          //       //   builder: (context,AsyncSnapshot<QuerySnapshot> snapshot){
+          //       //     if(snapshot.hasError){
+          //       //    return Text("Something went wrong!");
+          //       //  }
+          //       //  if(snapshot.connectionState == ConnectionState.waiting){
+          //       //    return  Center(
+          //       //      child: CupertinoActivityIndicator(),
+          //       //    );
+          //       //  }
+          //       //  if(snapshot.data!.docs.isEmpty){
+          //       //    return Text('No Data Found!');
+          //       //  }
+          //       //  if(snapshot != null && snapshot.data != null){
+          //       //   return Expanded(
+          //       //     child: ListView.builder(
+          //       //       itemCount: snapshot.data!.docs.length,
+          //       //       itemBuilder: (context,index){
+          //       //         return Card(
+          //       //           child: Column(
+          //       //             children: [
+                              
+          //       //             ],
+          //       //           ),
+          //       //         );
+          //       //       }
+          //       //     ),
+          //       //   );
+          //       //  }
+          //       //   }
+          //       // ),
+          //     ],
+          //   ),
+          // ),
         ),
       ),
 

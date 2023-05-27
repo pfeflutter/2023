@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 class MyListView extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _MyListViewState extends State<MyListView> {
   bool? _isChecked = false; 
   bool? _showText = false;
   TextEditingController _textController = TextEditingController();
-  
+  final now = DateTime.now();
 
   late User signedInUser;
 
@@ -58,7 +59,7 @@ class _MyListViewState extends State<MyListView> {
     final CollectionReference usersCollection = FirebaseFirestore.instance.collection('clients');
 
     DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
-
+    final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
     Object username = userDoc.data()!;
 
     for (String option in _selectedOptions) {
@@ -71,6 +72,7 @@ class _MyListViewState extends State<MyListView> {
           .set({
             "der":option,
             "Nom" : username,
+            "date" : formattedDate
              //"Email" : signedInUser,
           });
           //"selected": true
@@ -307,7 +309,8 @@ class _MyListViewState extends State<MyListView> {
     DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
 
     Object username = userDoc.data()!;
-    
+    final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+
 
     FirebaseFirestore.instance
     .collection("derangements")
@@ -318,6 +321,7 @@ class _MyListViewState extends State<MyListView> {
            // if(texteSaisie){
             "der": texteSaisie,
             "Nom" : username,
+            "date" : formattedDate,
             //},
            //"ID" : users.get('ID' as GetOptions?),
           }

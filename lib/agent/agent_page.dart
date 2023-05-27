@@ -16,6 +16,8 @@ class AgentPage extends StatefulWidget {
 }
 
 class _AgentPageState extends State<AgentPage> {
+  bool _isTapped = false;
+  final checkRef = FirebaseFirestore.instance.collection('derangemnts'); 
   final Stream<QuerySnapshot> _usersStreamm = FirebaseFirestore.instance.collection('clients').snapshots();     //.doc().collection('Derangements').snapshots() 
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('derangements').snapshots();  
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -166,23 +168,18 @@ class _AgentPageState extends State<AgentPage> {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (_)=>DerUsers(docid: snapshot.data!.docs[index],)));
+                          //onClick();
                         },
                         child: Card(
                           margin: const EdgeInsets.all(4),
                           elevation: 8,
                           child: ListTile(
-                            leading: Icon(Icons.person,size: 40,),
-                            // shape: RoundedRectangleBorder(
-                            //   borderRadius: BorderRadius.circular(10),
-                            //   side: BorderSide(
-                            //     color: Colors.black,
-                            //   ),
-                            // ),
                             title: Row(
                               children: [
                                 Text(
-                                  snapshot.data!.docChanges[index].doc['Nom.Nom'],
-                                  style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color: Colors.black),
+                                  snapshot.data!.docChanges[index].doc['der'],
+                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 // Text(
                                 //   snapshot.data!.docChanges[index].doc['ID'],
@@ -193,7 +190,7 @@ class _AgentPageState extends State<AgentPage> {
                             subtitle: Row(
                               children: [
                                 Text(
-                                  snapshot.data!.docChanges[index].doc['Nom.Prenom'],
+                                  snapshot.data!.docChanges[index].doc['date'],
                                   style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal,color: Colors.black54),
                                 ),
                                 const SizedBox(width: 10),
@@ -254,5 +251,17 @@ class _AgentPageState extends State<AgentPage> {
        
       
     );
+  }
+  
+  void onClick() {
+
+    // Créer un nouvel objet de vérification
+    final newCheckin = {
+        // remplacer par l'identifiant de l'utilisateur qui clique
+        'timestamp': DateTime.now(), // la date et l'heure de l'action
+        'text': 'view', // le texte cliqué
+
+    };
+    checkRef.add(newCheckin);
   }
 }
