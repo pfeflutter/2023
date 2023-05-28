@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:welapp/cllient/mon_compte.dart';
 
 class MyListView extends StatefulWidget {
   @override
@@ -105,6 +106,7 @@ class _MyListViewState extends State<MyListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned(
@@ -123,153 +125,132 @@ class _MyListViewState extends State<MyListView> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
-                      children: [
-                        
-                      AppBar(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                        leading: IconButton(
-                          
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EspacePage()));
-                          },
-                        ),
-                        //////////////
-                        actions: <Widget>[
-                          
-                          IconButton(
-                            onPressed: () {},
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));},
-                             icon: const Icon(Icons.person),iconSize: 30,),
-                          ///////////
-                          IconButton(
-                            onPressed: () {
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              // const SnackBar(content: Text('This is a snackbar')));
-                            },
+                      children: [     
+                        AppBar(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0.0,
+                          leading: IconButton(
                             icon: const Icon(
-                              Icons.message,
+                              Icons.arrow_back_ios,
+                              size: 30,
                             ),
-                            iconSize: 30,
-                            tooltip: 'Show Snackbar',
+                            onPressed: () {
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EspacePage()));
+                            },
                           ),
+                          //////////////
+                          actions: <Widget>[
                           
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text(
-                            'Hi ,',//+user.email!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontFamily: 'Inspiration',
-                              fontWeight: FontWeight.bold,
+                            IconButton(
+                              onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));},
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));},
+                              icon: const Icon(Icons.person),iconSize: 30,
                             ),
-                          ),
-                          Text(
-                            //user.email!,
-                            '',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontFamily: 'Inspiration',
-                              fontWeight: FontWeight.bold,
+                              ///////////
+                            // IconButton(
+                            //   onPressed: () {
+                            //     // ScaffoldMessenger.of(context).showSnackBar(
+                            //     // const SnackBar(content: Text('This is a snackbar')));
+                            //   },
+                            //   icon: const Icon(
+                            //     Icons.message,
+                            //   ),
+                            //   iconSize: 30,
+                            //   tooltip: 'Show Snackbar',
+                            // ),
+                          
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text(
+                              'Sélectionné votre dérangement :',//+user.email!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontFamily: 'Inspiration',
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        
-                          // MaterialButton(
-                          //   onPressed: (){
-                          //     FirebaseAuth.instance.signOut();
-                          //   },
-                          //   color: Colors.blue,
-                          //   child: Text('sign out'),
-                          //   ), 
-                          
-                          
-                        ],
-                      ),
+                          ],
+                        ),
                       ]
                     ),
                   ),
-              
-                  
-                ) 
-               
+                )                
               ],
             ),
           ),
           Padding(
-          padding: const EdgeInsets.only(top: 190),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(  
-                           itemCount: _derangements.length,
-                           itemBuilder: (BuildContext context, int index) {
-                              String option = _derangements[index];
-                              bool selected = _selectedOptions.contains(option);
-                              return ListTile(
-                                 title: Text(option),
-                                 trailing: Checkbox(
-                                  value: selected,
-                                  onChanged: (value){
-                                    setState(() {
-                                      if (value != null) {
-                                        _selectedOptions.add(option);
-                                        } else {
-                                          _selectedOptions.remove(option);
-                                        }
-                                        });
-                                  },
-                                 ),
-                                 onTap: () {
-                            setState(() {
-                               if (selected) {
-                               _selectedOptions.remove(option);
-                               } else {
-                                 _selectedOptions.add(option);
-                               }
-                            });
-                           },
-                              );
-                           },
-                  ),
+            padding: const EdgeInsets.only(top: 190),
+              child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(  
+                        itemCount: _derangements.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String option = _derangements[index];
+                          bool selected = _selectedOptions.contains(option);
+                          return ListTile(
+                            title: Text(option),
+                              trailing: Checkbox(
+                                value: selected,
+                                onChanged: (value){
+                                  setState(() {
+                                    if (value != null) {
+                                      _selectedOptions.add(option);
+                                    } else {
+                                      _selectedOptions.remove(option);
+                                    }
+                                  });
+                                },
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  if (selected) {
+                                    _selectedOptions.remove(option);
+                                  } else {
+                                    _selectedOptions.add(option);
+                                  }
+                                });
+                              },
+                          );
+                        },
+                      ),
+                    ),
+                    CheckboxListTile(
+                      title: Text('Autre'),
+                      value: _isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isChecked = value;
+                          _showText = value;
+                        });
+                      },
+                    ),
+                    if (_showText!) Padding(
+                      padding: const EdgeInsets.only(bottom:65),
+                      child: TextFormField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          labelText: 'Quelque chose à écrire ?',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          _monTexte = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Veuillez entrer quelque chose';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                          CheckboxListTile(
-                    title: Text('Autre'),
-                 value: _isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                   _isChecked = value;
-                    _showText = value;
-                  });
-                },
-                ),
-                               if (_showText!) Padding(
-                                              padding: const EdgeInsets.only(bottom:65),
-                                              child: TextFormField(
-                                                controller: _textController,
-                                                decoration: InputDecoration(
-                                                labelText: 'Quelque chose à écrire ?',
-                                                border: OutlineInputBorder(),
-                                                ),
-                                              onChanged: (value) {
-                                                _monTexte = value;
-                                            },
-                                              validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Veuillez entrer quelque chose';
-                                              }
-                                              return null;
-                                              },
-                                                         ),)
-              ],
-            ),
+              ),
           ),
           
 

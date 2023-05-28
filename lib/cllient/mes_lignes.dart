@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:welapp/cllient/mon_compte.dart';
 
 class MesLignesCl extends StatefulWidget {
   const MesLignesCl({super.key});
@@ -52,19 +53,21 @@ class _MesLignesClState extends State<MesLignesCl> {
                         actions: <Widget>[
                           
                           IconButton(
-                            onPressed: () {}, icon: Icon(Icons.person),iconSize: 30,),
-                          ///////////
-                          IconButton(
                             onPressed: () {
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              // const SnackBar(content: Text('This is a snackbar')));
-                            },
-                            icon: const Icon(
-                              Icons.message,
-                            ),
-                            iconSize: 30,
-                            tooltip: 'Show Snackbar',
-                          ),
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MonCompteCl()));
+                            }, icon: Icon(Icons.person),iconSize: 30,),
+                          ///////////
+                          // IconButton(
+                          //   onPressed: () {
+                          //     // ScaffoldMessenger.of(context).showSnackBar(
+                          //     // const SnackBar(content: Text('This is a snackbar')));
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.message,
+                          //   ),
+                          //   iconSize: 30,
+                          //   tooltip: 'Show Snackbar',
+                          // ),
                           
                         ],
                       ),
