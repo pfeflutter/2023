@@ -200,6 +200,7 @@ class _AgentPageState extends State<AgentPage> {
                                 // ),
                               ],
                             ),
+                            trailing: Icon(Icons.more_horiz,size: 30,),
                             //contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                           ),
                         ),

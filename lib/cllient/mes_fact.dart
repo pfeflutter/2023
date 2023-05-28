@@ -160,7 +160,7 @@ class _MesFactureClState extends State<MesFactureCl> {
                               margin: const EdgeInsets.only(left: 220,top: 20),
                               //alignment: Alignment.centerRight,
                               child: Text(
-                                "\ ${snap[index]['price']} MAD",
+                                "\   ${snap[index]['price']} DH",
                                 style: TextStyle(
                                   color: Colors.green.withOpacity(0.7),
                                   fontWeight: FontWeight.bold,

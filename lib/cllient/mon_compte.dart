@@ -51,22 +51,22 @@ class _MonCompteClState extends State<MonCompteCl> {
                             },
                           ),
                           //////////////
-                          actions: <Widget>[
-                            IconButton(onPressed: () {}, icon: Icon(Icons.person),iconSize: 30,),
-                            ///////////
-                            IconButton(
-                              onPressed: () {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                // const SnackBar(content: Text('This is a snackbar')));
-                              },
-                              icon: const Icon(
-                                Icons.notifications,
-                              ),
-                              iconSize: 30,
-                              tooltip: 'Show Snackbar',
-                            ),
+                          // actions: <Widget>[
+                          //   IconButton(onPressed: () {}, icon: Icon(Icons.person),iconSize: 30,),
+                          //   ///////////
+                          //   IconButton(
+                          //     onPressed: () {
+                          //       // ScaffoldMessenger.of(context).showSnackBar(
+                          //       // const SnackBar(content: Text('This is a snackbar')));
+                          //     },
+                          //     icon: const Icon(
+                          //       Icons.notifications,
+                          //     ),
+                          //     iconSize: 30,
+                          //     tooltip: 'Show Snackbar',
+                          //   ),
                           
-                          ],
+                          // ],
                         ),
 
                         Column(
@@ -85,7 +85,7 @@ class _MonCompteClState extends State<MonCompteCl> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top:190),
+            padding: const EdgeInsets.only(top:200),
             child: Container(
               margin: EdgeInsets.all(8),
               child: StreamBuilder(
@@ -167,7 +167,48 @@ class _MonCompteClState extends State<MonCompteCl> {
                                       Text('PHONE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
                                       Text(phone),
                                     ],
-                                  )
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text('Modifier'),
+                                            content: TextField(
+                                              controller: _nameController,
+                                              decoration: InputDecoration(
+                                                //labelText: 'Enter your name',
+                                                hintText: phone,
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                ),
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              ElevatedButton(
+                                                child: Text('Annuler'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              ElevatedButton(
+                                                child: Text('Modifier'),
+                                                onPressed : () {
+                                                  FirebaseFirestore.instance
+                                                  .collection('clients')
+                                                  .doc(userId?.uid)
+                                                  .update({'Phone' : _nameController.text})
+                                                  .then((value) => Navigator.pop(context));
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      );
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  ),
                                 ),
                                 /////////////////ville
                                 ListTile(
