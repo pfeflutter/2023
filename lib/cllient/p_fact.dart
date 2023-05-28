@@ -1,35 +1,82 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:welapp/cllient/mes_fact.dart';
+import 'package:intl/intl.dart';
 
 class PFactPage extends StatefulWidget {
-  const PFactPage({super.key});
+  DocumentSnapshot docid;
+  PFactPage({required this.docid});
 
   @override
   State<PFactPage> createState() => _PFactPageState();
 }
 
 class _PFactPageState extends State<PFactPage> {
-
+  final now = DateTime.now();
   TextEditingController cardNbCntr = TextEditingController();
   
   void getCardTypeFrmNum(){
     
   }
+  var  nCardController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final bool condition = widget.docid['paye'];
+    final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    final _auth = FirebaseAuth.instance;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('New card',style: TextStyle(color: Colors.black),),backgroundColor: Colors.white,),
+      appBar: AppBar(
+        shadowColor: Colors.amber,
+        foregroundColor: Colors.black,
+        title: const Text('PAIEMENT DE FACTURE',style: TextStyle(color: Colors.black),),
+        backgroundColor: Colors.white,
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.arrow_back_ios),
+        //       onPressed: () {
+        //       // Do something
+        //     },
+        //     color: Colors.black,
+        //   ),
+        // ],
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 40),
           child: Column(
             children: [
-              const Spacer(),
+              //const Spacer(),
               Form(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Nom Facture :       ${widget.docid['name']}',
+                            style: TextStyle(fontWeight: FontWeight.bold,),
+                          ),
+                          SizedBox(height: 10,),
+                          Text(
+                            'Date :       ${widget.docid['date']}',
+                            style: TextStyle(fontWeight: FontWeight.bold,),
+                          ),
+                          SizedBox(height: 10,),
+                          Text(
+                            'Montant Total :       ${widget.docid['price']} MAD',
+                            style: TextStyle(fontWeight: FontWeight.bold,),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
                     TextFormField(
                       keyboardType: TextInputType.number,
                       inputFormatters: [
@@ -38,7 +85,7 @@ class _PFactPageState extends State<PFactPage> {
                         CardNumberInput(),
                       ],
                       decoration: InputDecoration(
-                        hintText: "Card number",
+                        hintText: condition ? widget.docid['NCard'] : "Numéro de carte",
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Icon(Icons.card_membership_rounded),
@@ -49,24 +96,25 @@ class _PFactPageState extends State<PFactPage> {
                         ),
     
                       ),
-                      
+                      controller: nCardController,
                     ),
-                    Padding(
-                      padding:  const EdgeInsets.symmetric(vertical: 20),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Nom",
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Icon(Icons.person_2_outlined),
-                          ),
-                          border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding:  const EdgeInsets.symmetric(vertical: 20),
+                    //   child: TextFormField(
+                    //     decoration: InputDecoration(
+                    //       hintText: "Nom",
+                    //       prefixIcon: Padding(
+                    //         padding: EdgeInsets.symmetric(vertical: 10),
+                    //         child: Icon(Icons.person_2_outlined),
+                    //       ),
+                    //       border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //       borderSide: BorderSide(color: Colors.grey),
+                    //     ),
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(height: 20,),
                     Row(
                       children:  [
                         Expanded(
@@ -120,18 +168,54 @@ class _PFactPageState extends State<PFactPage> {
       
               const Spacer(flex: 2),
               //Scan Button
-              OutlinedButton.icon(
-                icon: const Icon(Icons.qr_code_2),
-                label: const Text('Scan'),
-                onPressed: () {},
-              ),
+              // OutlinedButton.icon(
+              //   icon: const Icon(Icons.qr_code_2),
+              //   label: const Text('Scan'),
+              //   onPressed: () {},
+              // ),
               Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(),
                 child: ElevatedButton(
-                  child: const Text('Add Card'),
-                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                  // ignore: deprecated_member_use
+                  //primary: const Color.fromARGB(255, 121, 64, 195),
+                   primary: Colors.blue,
+                  textStyle: const TextStyle(fontSize: 20),
+                  padding: const EdgeInsets.fromLTRB(80,10,80,10),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
                 ),
-              ),      
+                  child: const Text('Confirmer'),
+                  onPressed: () {
+                    widget.docid.reference.update({
+                    //'updatedAt': FieldValue.serverTimestamp(),
+                      'updatedAt': formattedDate,
+                      'pname' : 'Payée',
+                      'paye'  : true,
+                      'NCard' : nCardController.text,
+                    }).whenComplete(() {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> MesFactureCl()));
+                    });
+                  },
+                ),
+                
+              ),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.cancel),
+                label: const Text('Annule'),
+                onPressed: () {
+                  widget.docid.reference.update({
+                    //'updatedAt': FieldValue.serverTimestamp(),
+                      'updatedAt': formattedDate,
+                      'pname' : 'Payer',
+                      'paye'  : false,
+                      'NCard' : '',
+                    }).whenComplete(() {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> MesFactureCl()));
+                    });
+                },
+               ),
             ],
           ),
         ),

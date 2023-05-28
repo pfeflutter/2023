@@ -65,6 +65,8 @@ class _EditeUsersState extends State<EditeUsers> {
   var cniController = TextEditingController();
   var adresseController = TextEditingController();
   //var typeLController = TextEditingController();
+  List<String> _typeLigne = ['Internet ADSL', 'Fibre optique', 'Internet satellite','Internet 4G'];
+  var _selectedLigne;
 
   void initState(){
     nomController = TextEditingController(text: widget.docid.get('Nom'));
@@ -75,10 +77,15 @@ class _EditeUsersState extends State<EditeUsers> {
     phoneNoController = TextEditingController(text: widget.docid.get('Phone'));
     villeController = TextEditingController(text: widget.docid.get('Ville'));
     //typeLController = TextEditingController(text: widget.docid.get('Type Ligne'));
+    _selectedLigne = widget.docid.get('Type Ligne');
   }
+
+  
+  //String _selectedLigne = 'Internet 4G';
+
   @override
   Widget build(BuildContext context) {
-      final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 // This will give you the date string in "yyyy-MM-dd HH:mm:ss" format
      Widget buildTextfield(String hint, TextEditingController controller) {
       return Container(
@@ -119,6 +126,26 @@ class _EditeUsersState extends State<EditeUsers> {
                 buildTextfield('Ville',villeController),
                 buildTextfield('Adresse',adresseController),
                 //buildTextfield('Adresse',typeLController),
+                //Text(widget.docid.get('Type Ligne')),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton(
+                     value: _selectedLigne,
+                     iconSize: 36,
+                    isExpanded: true,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedLigne = value!;
+                      });},
+                      items: _typeLigne.map((typeL) {
+                      return DropdownMenuItem(
+                        value: typeL,
+                        child: Text(typeL),
+                      );
+                    }).toList(),
+                  ),
+                ),
+
                 //////////////////
                 SizedBox(height: 60,),
                 Row(
@@ -137,6 +164,7 @@ class _EditeUsersState extends State<EditeUsers> {
                           'Phone' : phoneNoController.text,
                           'Ville' : villeController.text,
                           'Adresse' : adresseController.text,
+                          'Type Ligne': _selectedLigne,
                         }).whenComplete(() {
                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AdminPage()));
                           });

@@ -119,11 +119,14 @@ class _MesFactureClState extends State<MesFactureCl> {
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if(snapshot.hasData) {
                   final snap = snapshot.data!.docs;
+
                   return ListView.builder(
                     shrinkWrap: true,
                     primary: false,
                     itemCount: snap.length,
                     itemBuilder: (context, index) {
+                      final bool condition = snap[index]['paye'];
+                      final String _buttonText = snap[index]['pname'];
                       return Container(
                         height: 70,
                         width: double.infinity,
@@ -154,10 +157,10 @@ class _MesFactureClState extends State<MesFactureCl> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 250,top: 20),
+                              margin: const EdgeInsets.only(left: 220,top: 20),
                               //alignment: Alignment.centerRight,
                               child: Text(
-                                "\$${snap[index]['price']}",
+                                "\ ${snap[index]['price']} MAD",
                                 style: TextStyle(
                                   color: Colors.green.withOpacity(0.7),
                                   fontWeight: FontWeight.bold,
@@ -178,20 +181,27 @@ class _MesFactureClState extends State<MesFactureCl> {
                             Container(
                               margin: const EdgeInsets.only(right: 20,bottom: 0),
                               alignment: Alignment.bottomRight,
+                              
                               child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: condition ? MaterialStateProperty.all(Color.fromARGB(255, 199, 198, 198)) : MaterialStateProperty.all(Colors.blue),
+                                  minimumSize: MaterialStateProperty.all(Size(15, 15)),
+                                ),
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PFactPage()));
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PFactPage(docid: snapshot.data!.docs[index],)));
                                 },
                                 child: Text(
-                                'Payer',
+                                _buttonText,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                                style: ElevatedButton.styleFrom(
-    minimumSize: Size(5,5),
-    // autres propriétés de style
-  ),
+                              
+                              // style: ElevatedButton.styleFrom(
+                              //   minimumSize: Size(5,5),
+                              //   // autres propriétés de style
+                              // ),
+                              
                               ),
                             ),
                           ],

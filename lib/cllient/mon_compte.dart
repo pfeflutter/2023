@@ -60,7 +60,7 @@ class _MonCompteClState extends State<MonCompteCl> {
                                 // const SnackBar(content: Text('This is a snackbar')));
                               },
                               icon: const Icon(
-                                Icons.message,
+                                Icons.notifications,
                               ),
                               iconSize: 30,
                               tooltip: 'Show Snackbar',
