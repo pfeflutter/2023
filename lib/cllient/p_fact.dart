@@ -70,7 +70,7 @@ class _PFactPageState extends State<PFactPage> {
                           ),
                           SizedBox(height: 10,),
                           Text(
-                            'Montant Total :       ${widget.docid['price']} MAD',
+                            'Montant Total :       ${widget.docid['price']} DH',
                             style: TextStyle(fontWeight: FontWeight.bold,),
                           ),
                         ],
