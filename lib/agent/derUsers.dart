@@ -153,10 +153,41 @@ class _DerUsersState extends State<DerUsers> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  
                 ),
               ),
+              SizedBox(height: 80),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MaterialButton(
+                      onPressed: (){
+                      },
+                      child: Text("problème résolue"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.blue[800], 
+                      textColor: Colors.white,
+                      splashColor: Colors.grey,
+                      highlightColor: Colors.blueAccent,
+                    ),
+                  
+                    SizedBox(width: 20),
 
+          //////////////delete///////////////
+                    MaterialButton(
+                      onPressed: () {},
+                      child: Text('problème indécis'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.blue[800], 
+                      textColor: Colors.white,
+                    ),
+                  ],
+                )
             ],
 
           ),
