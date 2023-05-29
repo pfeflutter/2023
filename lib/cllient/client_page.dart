@@ -6,6 +6,7 @@ import 'package:welapp/cllient/der/multiSel.dart';
 import 'package:welapp/cllient/mes_fact.dart';
 import 'package:welapp/cllient/mes_lignes.dart';
 import 'package:welapp/cllient/mon_compte.dart';
+import 'package:welapp/cllient/not_pages.dart';
 import 'package:welapp/login.dart';
 
 
@@ -67,6 +68,7 @@ Widget build(BuildContext context){
                             onPressed: () {
                               // ScaffoldMessenger.of(context).showSnackBar(
                               // const SnackBar(content: Text('This is a snackbar')));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const NotPage()));
                             },
                             icon: const Icon(
                               Icons.notifications,

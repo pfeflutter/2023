@@ -89,17 +89,17 @@ class _AgentPageState extends State<AgentPage> {
                             },
                             icon: const Icon(Icons.exit_to_app),iconSize: 30,),
                           ///////////
-                          IconButton(
-                            onPressed: () {
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              // const SnackBar(content: Text('This is a snackbar')));
-                            },
-                            icon: const Icon(
-                              Icons.notifications_active,
-                            ),
-                            iconSize: 30,
-                            tooltip: 'Show Snackbar',
-                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     // ScaffoldMessenger.of(context).showSnackBar(
+                          //     // const SnackBar(content: Text('This is a snackbar')));
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.notifications_active,
+                          //   ),
+                          //   iconSize: 30,
+                          //   tooltip: 'Show Snackbar',
+                          // ),
                           
                         ],
                       ),
@@ -165,6 +165,7 @@ class _AgentPageState extends State<AgentPage> {
                   child: ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (_, index) {
+                      final bool condition = snapshot.data!.docs[index]['resolue'];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (_)=>DerUsers(docid: snapshot.data!.docs[index],)));
@@ -178,7 +179,10 @@ class _AgentPageState extends State<AgentPage> {
                               children: [
                                 Text(
                                   snapshot.data!.docChanges[index].doc['der'],
-                                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
+                                  style: TextStyle(
+                                    fontSize: 20,fontWeight: FontWeight.bold,
+                                    color: condition ? Colors.green : Colors.black,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 // Text(

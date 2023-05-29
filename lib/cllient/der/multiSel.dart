@@ -73,7 +73,8 @@ class _MyListViewState extends State<MyListView> {
           .set({
             "der":option,
             "Nom" : username,
-            "date" : formattedDate
+            "date" : formattedDate,
+            "resolue" : false,
              //"Email" : signedInUser,
           });
           //"selected": true
@@ -303,6 +304,7 @@ class _MyListViewState extends State<MyListView> {
             "der": texteSaisie,
             "Nom" : username,
             "date" : formattedDate,
+            "resolue" : false,
             //},
            //"ID" : users.get('ID' as GetOptions?),
           }

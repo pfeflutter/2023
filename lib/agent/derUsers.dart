@@ -85,24 +85,7 @@ class _DerUsersState extends State<DerUsers> {
   }
   @override
   Widget build(BuildContext context) {
-    
-    Widget buildTextfield(String hint, TextEditingController controller) {
-      return Container(
-        margin: EdgeInsets.all(4),
-        child: TextField(
-          decoration: InputDecoration(
-            labelText: hint,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.black38,
-              ),
-            )
-          ),
-          controller: controller,
-        ),
-      );
-    }
-
+    final bool condition = widget.docid['resolue'];
     return Scaffold(
       appBar: AppBar(
         title: Text('Détails',style: TextStyle(),),
@@ -122,6 +105,8 @@ class _DerUsersState extends State<DerUsers> {
               Text('    Prenom : ${widget.docid.get('Nom.Prenom')}'),
               SizedBox(height: 8),
               Text('    Numéro de telephone : ${widget.docid.get('Nom.Phone')}'),
+              SizedBox(height: 8),
+              Text('    Type Ligne : ${widget.docid.get('Nom.Type Ligne')}'),
               SizedBox(height: 8),
               Text('    Adresse : ${widget.docid.get('Nom.Adresse')}'),
               SizedBox(height: 8),
@@ -163,6 +148,16 @@ class _DerUsersState extends State<DerUsers> {
                   children: [
                     MaterialButton(
                       onPressed: (){
+                    widget.docid.reference.update({
+                    //'updatedAt': FieldValue.serverTimestamp(),
+                      //'updatedAt': formattedDate,
+                      //'pname' : 'Payée',
+                      'resolue'  : true,
+                      //'NCard' : nCardController.text,
+                    }).whenComplete(() {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AgentPage()));
+                    });
+                
                       },
                       child: Text("problème résolue"),
                       shape: RoundedRectangleBorder(
