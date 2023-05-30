@@ -129,200 +129,30 @@ class _NotPageState extends State<NotPage> {
                                 //    Text(id),
                                 //    ],
                                 //  )),
-                                ListTile(
-                                  title: Row(
-                                    children: [
-                                      //Text('NOM :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                      id != true ? 
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Text(snapshot.data!.docs[index]['der'],style: TextStyle(fontWeight: FontWeight.bold),),
-                                            Text('n\'a pas encore résolue'),
-                                          ],
-                                        ) : Column(
-                                          children: [
-                                            Text(snapshot.data!.docs[index]['der'],style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
-                                            Text('a été resoudre a :'),
-                                            Text(snapshot.data!.docs[index]['date'])
-                                          ],
-                                        ),
-                                    ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 60),
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        //Text('NOM :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
+                                        id != true ? 
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(snapshot.data!.docs[index]['der'],style: TextStyle(fontWeight: FontWeight.bold),),
+                                              Text('n\'a pas encore résolue'),
+                                            ],
+                                          ) : Column(
+                                            children: [
+                                              Text(snapshot.data!.docs[index]['der'],style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
+                                              Text('a été resoudre a :'),
+                                              Text(snapshot.data!.docs[index]['date'])
+                                            ],
+                                          ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('PRENOM :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(prenom),
-                                //     ],
-                                //   )
-                                // ),
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('EMAIL :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(email),
-                                //     ],
-                                //   ),
-                                // ),
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('CIN :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(cin),
-                                //     ],
-                                //   )
-                                // ),
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('PHONE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(phone),
-                                //     ],
-                                //   ),
-                                //   trailing: IconButton(
-                                //     onPressed: () {
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (BuildContext context) {
-                                //           return AlertDialog(
-                                //             title: Text('Modifier'),
-                                //             content: TextField(
-                                //               controller: _nameController,
-                                //               decoration: InputDecoration(
-                                //                 //labelText: 'Enter your name',
-                                //                 hintText: phone,
-                                //                 border: OutlineInputBorder(
-                                //                   borderRadius: BorderRadius.circular(10.0),
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //             actions: <Widget>[
-                                //               ElevatedButton(
-                                //                 child: Text('Annuler'),
-                                //                 onPressed: () {
-                                //                   Navigator.of(context).pop();
-                                //                 },
-                                //               ),
-                                //               ElevatedButton(
-                                //                 child: Text('Modifier'),
-                                //                 onPressed : () {
-                                //                   FirebaseFirestore.instance
-                                //                   .collection('clients')
-                                //                   .doc(userId?.uid)
-                                //                   .update({'Phone' : _nameController.text})
-                                //                   .then((value) => Navigator.pop(context));
-                                //                 },
-                                //               ),
-                                //             ],
-                                //           );
-                                //         }
-                                //       );
-                                //     },
-                                //     icon: Icon(Icons.edit),
-                                //   ),
-                                // ),
-                                // /////////////////ville
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('VILLE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(ville),
-                                //     ],
-                                //   ),
-                                //   trailing: IconButton(
-                                //     onPressed: () {
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (BuildContext context) {
-                                //           return AlertDialog(
-                                //             title: Text('Modifier'),
-                                //             content: TextField(
-                                //               controller: _nameController,
-                                //               decoration: InputDecoration(
-                                //                 //labelText: 'Enter your name',
-                                //                 hintText: ville,
-                                //                 border: OutlineInputBorder(
-                                //                   borderRadius: BorderRadius.circular(10.0),
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //             actions: <Widget>[
-                                //               ElevatedButton(
-                                //                 child: Text('Annuler'),
-                                //                 onPressed: () {
-                                //                   Navigator.of(context).pop();
-                                //                 },
-                                //               ),
-                                //               ElevatedButton(
-                                //                 child: Text('Modifier'),
-                                //                 onPressed : () {
-                                //                   FirebaseFirestore.instance
-                                //                   .collection('clients')
-                                //                   .doc(userId?.uid)
-                                //                   .update({'Ville' : _nameController.text})
-                                //                   .then((value) => Navigator.pop(context));
-                                //                 },
-                                //               ),
-                                //             ],
-                                //           );
-                                //         }
-                                //       );
-                                //     },
-                                //     icon: Icon(Icons.edit),
-                                //   ),
-                                // ),
-                                ////////////////////////////////:ADRESSE
-                                // ListTile(
-                                //   title: Row(
-                                //     children: [
-                                //       Text('ADRESSE :',style: TextStyle(fontWeight: FontWeight.bold),),SizedBox(width: 8),
-                                //       Text(adresse),
-                                //     ],
-                                //   ),
-                                //   trailing: IconButton(
-                                //     onPressed: () {
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (BuildContext context) {
-                                //           return AlertDialog(
-                                //             title: Text('Modifier'),
-                                //             content: TextField(
-                                //               controller: _nameController,
-                                //               decoration: InputDecoration(
-                                //                 //labelText: 'Enter your name',
-                                //                 hintText: adresse,
-                                //                 border: OutlineInputBorder(
-                                //                   borderRadius: BorderRadius.circular(10.0),
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //             actions: <Widget>[
-                                //               ElevatedButton(
-                                //                 child: Text('Annuler'),
-                                //                 onPressed: () {
-                                //                   Navigator.of(context).pop();
-                                //                 },
-                                //               ),
-                                //               ElevatedButton(
-                                //                 child: Text('Modifier'),
-                                //                 onPressed : () {
-                                //                   FirebaseFirestore.instance
-                                //                   .collection('clients')
-                                //                   .doc(userId?.uid)
-                                //                   .update({'Adresse' : _nameController.text})
-                                //                   .then((value) => Navigator.pop(context));
-                                //                 },
-                                //               ),
-                                //             ],
-                                //           );
-                                //         }
-                                //       );
-                                //     },
-                                //     icon: Icon(Icons.edit),
-                                //   ),
-                                // ),   
+                                ), 
                               ],
                             ),  
                           );

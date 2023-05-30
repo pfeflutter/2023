@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:welapp/admin/admin_page.dart';
 import 'package:welapp/agent/agent_page.dart';
+import 'package:intl/intl.dart';
 
 class DerUsers extends StatefulWidget {
   DocumentSnapshot docid;
@@ -14,6 +15,7 @@ class DerUsers extends StatefulWidget {
 }
 
 class _DerUsersState extends State<DerUsers> {
+  final now = DateTime.now();
   final _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     bool? _isChecked = false; 
@@ -85,6 +87,7 @@ class _DerUsersState extends State<DerUsers> {
   }
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
     final bool condition = widget.docid['resolue'];
     return Scaffold(
       appBar: AppBar(
@@ -150,7 +153,7 @@ class _DerUsersState extends State<DerUsers> {
                       onPressed: (){
                     widget.docid.reference.update({
                     //'updatedAt': FieldValue.serverTimestamp(),
-                      //'updatedAt': formattedDate,
+                      'updatedAtres': formattedDate,
                       //'pname' : 'Payée',
                       'resolue'  : true,
                       //'NCard' : nCardController.text,
@@ -173,7 +176,17 @@ class _DerUsersState extends State<DerUsers> {
 
           //////////////delete///////////////
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.docid.reference.update({
+                    //'updatedAt': FieldValue.serverTimestamp(),
+                      //'updatedAtres': formattedDate,
+                      //'pname' : 'Payée',
+                      'resolue'  : false,
+                      //'NCard' : nCardController.text,
+                    }).whenComplete(() {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (_)=> AgentPage()));
+                    });
+                      },
                       child: Text('problème indécis'),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
