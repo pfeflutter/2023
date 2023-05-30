@@ -23,7 +23,7 @@ class _MyListViewState extends State<MyListView> {
           child: Column(
             children: [
               SizedBox(height: 40,),
-              Text('Les dérangement qui sélectionné',style: TextStyle(fontWeight: FontWeight.bold),),
+              Text('Les dérangement qui sélectionné',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
               SizedBox(height: 40,),
               Expanded(
                 child: StreamBuilder(
@@ -41,7 +41,7 @@ class _MyListViewState extends State<MyListView> {
                       );
                     }
                     if(snapshot.data!.docs.isEmpty){
-                      return Text('No Data Found!');
+                      return Text('Aucune dérangements selectionné');
                     }
                     if(snapshot != null && snapshot.data != null){
                       return Container(

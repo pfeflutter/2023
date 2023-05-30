@@ -72,7 +72,7 @@ class _NotPageState extends State<NotPage> {
                         Column(
                           children: [
                             Text(
-                              'Mon Compte',
+                              '',
                               style: TextStyle(color: Colors.white,fontSize: 30,fontFamily: 'Inspiration',fontWeight: FontWeight.bold,),
                             ),
                           ],
@@ -146,7 +146,7 @@ class _NotPageState extends State<NotPage> {
                                             children: [
                                               Text(snapshot.data!.docs[index]['der'],style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
                                               Text('a été resoudre a :'),
-                                              Text(snapshot.data!.docs[index]['date'])
+                                              Text(snapshot.data!.docs[index]['updatedAtres'])
                                             ],
                                           ),
                                       ],

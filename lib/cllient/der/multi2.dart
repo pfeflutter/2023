@@ -29,12 +29,13 @@ User? userId = FirebaseAuth.instance.currentUser;
     super.dispose();
   }
   List<String> _derangements = [
-    "Ma ligne n'est pas active",
-    "Deconnexion d'interne",
-    'Internet est tree faible',
-    'Problemes de configuration',
-    "J'ai deja paie cette facture",
-    "Ma ligne n'pas active",
+    "Mon câble est coupé",
+    "La perte de la connexion",
+    'Le retour est panné',
+    'Ma ligne n\'est pas active',
+    "Problème de configuration",
+    "J'ai déjà payé la facture de ce mois",
+    "Je veux arrêter ce offer",
     //"Autre",
   ]; // Liste des options disponibles
 

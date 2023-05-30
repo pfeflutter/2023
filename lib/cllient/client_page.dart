@@ -229,7 +229,7 @@ Widget build(BuildContext context){
               },
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 30,),
         Column(
           children: [
             GestureDetector(
@@ -243,7 +243,7 @@ Widget build(BuildContext context){
           );
               },
               child: const Text(
-                'sign out',
+                'Déconnexion',
               ),
             ),
          ],
